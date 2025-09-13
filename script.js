@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 页面加载时的动画效果
     function animateOnScroll() {
-        const elements = document.querySelectorAll('.skill-item, .project-card');
+        const elements = document.querySelectorAll('.skill-item, .project-card, .research-item, .publication-item');
         
         elements.forEach(element => {
             const elementTop = element.getBoundingClientRect().top;
@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // 初始化动画元素
-    const animatedElements = document.querySelectorAll('.skill-item, .project-card');
+    const animatedElements = document.querySelectorAll('.skill-item, .project-card, .research-item, .publication-item');
     animatedElements.forEach(element => {
         element.style.opacity = '0';
         element.style.transform = 'translateY(30px)';

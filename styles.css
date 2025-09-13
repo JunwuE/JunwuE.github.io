@@ -12,8 +12,8 @@ html {
 body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
-    color: #333;
-    background-color: #fff;
+    color: #2c2c2c;
+    background-color: #ffffff;
 }
 
 .container {
@@ -106,9 +106,10 @@ body {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: #ffffff;
+    color: #2c2c2c;
     padding-top: 80px;
+    border-bottom: 1px solid #e0e0e0;
 }
 
 .hero-container {
@@ -129,22 +130,43 @@ body {
 }
 
 .highlight {
-    color: #ffd700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    color: #1a1a1a;
+    font-weight: 700;
 }
 
 .hero-subtitle {
     font-size: 1.5rem;
     font-weight: 500;
     margin-bottom: 1.5rem;
-    opacity: 0.9;
+    color: #666;
 }
 
 .hero-description {
     font-size: 1.1rem;
     margin-bottom: 2rem;
-    opacity: 0.8;
+    color: #777;
     line-height: 1.8;
+}
+
+.hero-contact {
+    margin-bottom: 2rem;
+}
+
+.hero-contact p {
+    margin: 0.5rem 0;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.hero-contact a {
+    color: #333;
+    text-decoration: none;
+}
+
+.hero-contact a:hover {
+    color: #000;
 }
 
 .hero-buttons {
@@ -163,25 +185,25 @@ body {
 }
 
 .btn-primary {
-    background: #ffd700;
-    color: #333;
+    background: #2c2c2c;
+    color: #ffffff;
 }
 
 .btn-primary:hover {
-    background: transparent;
-    color: #ffd700;
-    border-color: #ffd700;
+    background: #ffffff;
+    color: #2c2c2c;
+    border-color: #2c2c2c;
 }
 
 .btn-secondary {
     background: transparent;
-    color: white;
-    border-color: white;
+    color: #2c2c2c;
+    border-color: #2c2c2c;
 }
 
 .btn-secondary:hover {
-    background: white;
-    color: #333;
+    background: #2c2c2c;
+    color: #ffffff;
 }
 
 .hero-image {
@@ -194,17 +216,16 @@ body {
     width: 300px;
     height: 300px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    background: #f8f8f8;
     display: flex;
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid #e0e0e0;
 }
 
 .image-placeholder i {
     font-size: 8rem;
-    opacity: 0.7;
+    color: #ccc;
 }
 
 /* 通用部分样式 */
@@ -225,14 +246,42 @@ body {
     transform: translateX(-50%);
     width: 80px;
     height: 3px;
-    background: #3498db;
+    background: #2c2c2c;
     border-radius: 2px;
 }
 
 /* 关于我部分 */
 .about {
     padding: 100px 0;
-    background: #f8f9fa;
+    background: #fafafa;
+}
+
+.education-item {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #ffffff;
+    border-left: 4px solid #2c2c2c;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.education-item h4 {
+    color: #2c2c2c;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.awards-list {
+    list-style: none;
+    padding: 0;
+}
+
+.awards-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.awards-list li:last-child {
+    border-bottom: none;
 }
 
 .about-content {
@@ -288,9 +337,105 @@ body {
     color: #2c3e50;
 }
 
+/* 研究经验部分 */
+.research {
+    padding: 100px 0;
+    background: #ffffff;
+}
+
+.research-list {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.research-item {
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+.research-item h3 {
+    color: #2c2c2c;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.research-period {
+    color: #666;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.research-supervisor {
+    color: #777;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.research-details {
+    list-style: none;
+    padding: 0;
+}
+
+.research-details li {
+    padding: 0.3rem 0;
+    padding-left: 1rem;
+    position: relative;
+}
+
+.research-details li:before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #2c2c2c;
+    font-weight: bold;
+}
+
+/* 发表论文部分 */
+.publications {
+    padding: 100px 0;
+    background: #fafafa;
+}
+
+.publications-list {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.publication-item {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+.publication-item h3 {
+    color: #2c2c2c;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.authors {
+    color: #666;
+    margin-bottom: 0.5rem;
+    font-style: italic;
+}
+
+.venue {
+    color: #777;
+    font-weight: 500;
+}
+
 /* 项目部分 */
 .projects {
     padding: 100px 0;
+    background: #ffffff;
 }
 
 .projects-grid {
@@ -314,7 +459,7 @@ body {
 
 .project-image {
     height: 200px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #2c2c2c;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -348,14 +493,15 @@ body {
 
 .tech-tag {
     display: inline-block;
-    background: #e3f2fd;
-    color: #1976d2;
+    background: #f0f0f0;
+    color: #333;
     padding: 0.3rem 0.8rem;
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 500;
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
+    border: 1px solid #ddd;
 }
 
 .project-links {
@@ -367,20 +513,20 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: #3498db;
+    color: #333;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
 }
 
 .project-link:hover {
-    color: #2980b9;
+    color: #000;
 }
 
 /* 联系我部分 */
 .contact {
     padding: 100px 0;
-    background: #f8f9fa;
+    background: #fafafa;
 }
 
 .contact-content {
@@ -417,7 +563,7 @@ body {
 
 .contact-method i {
     font-size: 1.2rem;
-    color: #3498db;
+    color: #333;
     width: 20px;
 }
 
@@ -446,7 +592,7 @@ body {
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #3498db;
+    border-color: #2c2c2c;
 }
 
 .form-group textarea {
@@ -479,7 +625,7 @@ body {
 }
 
 .social-links a:hover {
-    color: #3498db;
+    color: #666;
 }
 
 /* 响应式设计 */
@@ -615,10 +761,10 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #3498db;
+    background: #2c2c2c;
     border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #2980b9;
+    background: #1a1a1a;
 }

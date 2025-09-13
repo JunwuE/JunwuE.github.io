@@ -17,10 +17,12 @@
                 <a href="#home">Junwu E</a>
             </div>
             <div class="nav-menu" id="nav-menu">
-                <a href="#home" class="nav-link">首页</a>
-                <a href="#about" class="nav-link">关于我</a>
-                <a href="#projects" class="nav-link">项目</a>
-                <a href="#contact" class="nav-link">联系我</a>
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#research" class="nav-link">Research</a>
+                <a href="#publications" class="nav-link">Publications</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
             </div>
             <div class="nav-toggle" id="nav-toggle">
                 <span class="bar"></span>
@@ -35,17 +37,23 @@
         <div class="hero-container">
             <div class="hero-content">
                 <h1 class="hero-title">
-                    你好，我是 <span class="highlight">Junwu E</span>
+                    <span class="highlight">Junwu E</span>
                 </h1>
                 <p class="hero-subtitle">
-                    全栈开发者 | 技术爱好者 | 创新者
+                    Ph.D. Candidate in Computer Vision & Robotics
                 </p>
                 <p class="hero-description">
-                    专注于创建优雅、高效的数字解决方案，热衷于学习新技术并将其应用于实际项目中。
+                    B.E. in Automation, Tongji University | GPA: 90.57/100<br>
+                    Research Focus: Computer Vision, Robot Perception, Deep Learning, Machine Intelligence
                 </p>
+                <div class="hero-contact">
+                    <p><i class="fas fa-phone"></i> +86 18801615808</p>
+                    <p><i class="fas fa-envelope"></i> 2152482@tongji.edu.cn</p>
+                    <p><i class="fab fa-github"></i> <a href="https://github.com/JunwuE" target="_blank">github.com/JunwuE</a></p>
+                </div>
                 <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">查看项目</a>
-                    <a href="#contact" class="btn btn-secondary">联系我</a>
+                    <a href="#research" class="btn btn-primary">Research</a>
+                    <a href="#publications" class="btn btn-secondary">Publications</a>
                 </div>
             </div>
             <div class="hero-image">
@@ -59,46 +67,167 @@
     <!-- 关于我部分 -->
     <section id="about" class="about">
         <div class="container">
-            <h2 class="section-title">关于我</h2>
+            <h2 class="section-title">About Me</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p>
-                        我是一名充满激情的开发者，拥有丰富的全栈开发经验。我热爱编程，喜欢解决复杂的技术挑战，
-                        并致力于创建用户友好的应用程序。
-                    </p>
-                    <p>
-                        我的技术栈包括前端和后端开发，数据库设计，以及云服务部署。我相信持续学习的重要性，
-                        并始终保持对新技术的好奇心。
-                    </p>
+                    <h3>Education</h3>
+                    <div class="education-item">
+                        <h4>Tongji University, College of Electronic and Information Engineering</h4>
+                        <p><strong>B.E. in Automation</strong> | 2021.09 - Present | Shanghai, China</p>
+                        <p><strong>GPA: 90.57/100</strong></p>
+                        <p>A+ Courses: Artificial Intelligence Basics, Machine Learning, Deep Learning, 
+                           Image Processing, Embedded Systems, Linear Algebra, Probability Theory, Control System, etc.</p>
+                    </div>
+                    
+                    <h3>Research Interests</h3>
+                    <p>Computer Vision, Robot Perception, Deep Learning, Machine Intelligence</p>
+                    
+                    <h3>Awards & Honors</h3>
+                    <ul class="awards-list">
+                        <li><strong>First-Class Scholarship</strong> (Top 10%) - Tongji University, 2023</li>
+                        <li><strong>Second-Class Scholarship</strong> (Top 30%) - Tongji University, 2022</li>
+                        <li><strong>Outstanding Student Cadre</strong> - Tongji University, 2022</li>
+                        <li><strong>Second Prize</strong> - East China Division Embedded Systems Competition, 2025</li>
+                    </ul>
                 </div>
                 <div class="skills">
-                    <h3>技能</h3>
+                    <h3>Technical Skills</h3>
                     <div class="skills-grid">
-                        <div class="skill-item">
-                            <i class="fab fa-js-square"></i>
-                            <span>JavaScript</span>
-                        </div>
                         <div class="skill-item">
                             <i class="fab fa-python"></i>
                             <span>Python</span>
                         </div>
                         <div class="skill-item">
-                            <i class="fab fa-react"></i>
-                            <span>React</span>
+                            <i class="fas fa-code"></i>
+                            <span>C/C++</span>
                         </div>
                         <div class="skill-item">
-                            <i class="fab fa-node-js"></i>
-                            <span>Node.js</span>
+                            <i class="fas fa-brain"></i>
+                            <span>PyTorch</span>
                         </div>
                         <div class="skill-item">
-                            <i class="fas fa-database"></i>
-                            <span>数据库</span>
+                            <i class="fas fa-eye"></i>
+                            <span>OpenCV</span>
                         </div>
                         <div class="skill-item">
-                            <i class="fab fa-git-alt"></i>
-                            <span>Git</span>
+                            <i class="fas fa-car"></i>
+                            <span>CARLA</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-microchip"></i>
+                            <span>CUDA C</span>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 研究经验部分 -->
+    <section id="research" class="research">
+        <div class="container">
+            <h2 class="section-title">Research Experience</h2>
+            <div class="research-list">
+                <div class="research-item">
+                    <h3>Transformer and Trainable Bilateral Filter for Unsupervised Stereo Matching 
+                        <a href="https://github.com/JunwuE/TBSMnet" class="project-link" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </h3>
+                    <p class="research-period">2025.02 - 2025.06 | First Contributor</p>
+                    <p class="research-supervisor">Supervisor: Prof. Rui Fan, MIAS Group, Tongji University</p>
+                    <ul class="research-details">
+                        <li>Proposed TBSMNet, an unsupervised stereo matching network integrating a hybrid Transformer-CNN encoder</li>
+                        <li>Designed a ViT-CNN hybrid encoder combining global context modeling with local structure preservation</li>
+                        <li>Introduced a trainable bilateral filter with adaptive parameters for noise suppression</li>
+                        <li>Achieved significant accuracy improvements on SceneFlow and KITTI datasets</li>
+                    </ul>
+                </div>
+
+                <div class="research-item">
+                    <h3>Stereo Vision-based Tactile Sensing 
+                        <a href="https://github.com/JunwuE/Stereo-Vision-based-Tactile-Sensing" class="project-link" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </h3>
+                    <p class="research-period">2024.5 - 2024.11</p>
+                    <p class="research-supervisor">Supervisor: Prof. Rui Fan & Prof. Shaowei Cui (CASIA)</p>
+                    <ul class="research-details">
+                        <li>Implemented a vision-based tactile sensing system using binocular cameras</li>
+                        <li>Built deep learning-based stereo processing framework for marker detection and disparity estimation</li>
+                        <li>Conducted system calibration and parameter optimization for long-term stability</li>
+                        <li>Developed real-time visualization and monitoring pipeline</li>
+                    </ul>
+                </div>
+
+                <div class="research-item">
+                    <h3>Joint Learning of Monocular Depth Estimation and Semantic Segmentation 
+                        <a href="https://github.com/JunwuE/Joint-Learning-of-Monocular-Depth-Estimation-and-Semantic-Segmentation" class="project-link" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </h3>
+                    <p class="research-period">2024.10 - 2025.02 | First Contributor</p>
+                    <p class="research-supervisor">Supervisor: Prof. Rui Fan, MIAS Group, Tongji University</p>
+                    <ul class="research-details">
+                        <li>Built multi-task joint learning framework with shared encoder and task-specific decoders</li>
+                        <li>Designed multi-objective training strategy with adaptive loss balancing</li>
+                        <li>Implemented 3D semantic point cloud reconstruction using Open3D</li>
+                        <li>Demonstrated improvements in both segmentation accuracy and depth reconstruction</li>
+                    </ul>
+                </div>
+
+                <div class="research-item">
+                    <h3>CarlaOcc: Instance-aware Occupancy Prediction Benchmark</h3>
+                    <p class="research-period">2025.05 - Present | Second Contributor (with Yi Feng)</p>
+                    <p class="research-supervisor">Supervisor: Prof. Rui Fan, MIAS Group, Tongji University</p>
+                    <ul class="research-details">
+                        <li>Collected multi-modal data from CARLA simulator for large-scale occupancy prediction dataset</li>
+                        <li>Implemented pedestrian mesh extraction and reconstruction module</li>
+                        <li>Developed core components of data collection pipeline</li>
+                    </ul>
+                </div>
+
+                <div class="research-item">
+                    <h3>Kitti360 Instances Dataset</h3>
+                    <p class="research-period">2025.07 - Present | First Contributor</p>
+                    <p class="research-supervisor">Supervisor: Prof. Rui Fan, MIAS Group, Tongji University</p>
+                    <ul class="research-details">
+                        <li>Built large-scale instance-level dataset based on KITTI-360</li>
+                        <li>Developed data processing pipeline for automatic instance extraction</li>
+                        <li>Implemented instance segmentation and mesh reconstruction of dynamic objects</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 发表论文部分 -->
+    <section id="publications" class="publications">
+        <div class="container">
+            <h2 class="section-title">Publications</h2>
+            <div class="publications-list">
+                <div class="publication-item">
+                    <h3>Transformer and Trainable Bilateral Filter for Unsupervised Stereo Matching</h3>
+                    <p class="authors"><strong>Junwu E</strong>, Ming-Ju Lee, Qinluo Deng, Guanfeng Tang, Zhengfei Song, Yang Xu, Ye Zhang, Ilin Alexander, Rui Fan</p>
+                    <p class="venue"><em>The 2025 IEEE International Conference on Real-time Computing and Robotics</em></p>
+                </div>
+
+                <div class="publication-item">
+                    <h3>Robust and Real-time Road Crack Detection through Collaborative Dual-Branch Learning on Robotic Sensing Platform</h3>
+                    <p class="authors">Zhengfei Song, Nachuan Ma, Zhuoyan Zhang, <strong>Junwu E</strong>, MingJu Lee, Sergey Vityazev, Alexander Dvorkovich, Rui Fan</p>
+                    <p class="venue"><em>The 2025 IEEE International Conference on Real-time Computing and Robotics</em></p>
+                </div>
+
+                <div class="publication-item">
+                    <h3>CarlaOcc</h3>
+                    <p class="authors">Yi Feng, <strong>Junwu E</strong></p>
+                    <p class="venue"><em>The IEEE/CVF Conference on Computer Vision and Pattern Recognition 2026</em> (in preparation)</p>
+                </div>
+
+                <div class="publication-item">
+                    <h3>Kitti360 instances dataset</h3>
+                    <p class="authors"><strong>Junwu E</strong>, Yi Feng</p>
+                    <p class="venue"><em>The IEEE/CVF Conference on Computer Vision and Pattern Recognition 2026</em> (in preparation)</p>
                 </div>
             </div>
         </div>
@@ -107,27 +236,24 @@
     <!-- 项目部分 -->
     <section id="projects" class="projects">
         <div class="container">
-            <h2 class="section-title">我的项目</h2>
+            <h2 class="section-title">Selected Projects</h2>
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-image">
-                        <i class="fas fa-code"></i>
+                        <i class="fas fa-microchip"></i>
                     </div>
                     <div class="project-content">
-                        <h3>项目一</h3>
-                        <p>这是一个展示项目的描述。您可以在这里添加您的实际项目信息。</p>
+                        <h3>Embedded System Development of Handwritten Digit Recognition</h3>
+                        <p>Developed an embedded system for real-time handwritten digit recognition using machine learning algorithms optimized for resource-constrained devices.</p>
                         <div class="project-tech">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">Embedded C</span>
+                            <span class="tech-tag">Machine Learning</span>
+                            <span class="tech-tag">PCB Design</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" class="project-link">
+                            <a href="https://github.com/JunwuE/gesture_pcb" class="project-link" target="_blank">
                                 <i class="fab fa-github"></i>
                                 GitHub
-                            </a>
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i>
-                                演示
                             </a>
                         </div>
                     </div>
@@ -135,23 +261,20 @@
 
                 <div class="project-card">
                     <div class="project-image">
-                        <i class="fas fa-mobile-alt"></i>
+                        <i class="fas fa-camera"></i>
                     </div>
                     <div class="project-content">
-                        <h3>项目二</h3>
-                        <p>这是另一个项目的描述。展示您的技能和创造力。</p>
+                        <h3>Camera Calibration and Stereo Matching</h3>
+                        <p>Comprehensive image processing project implementing camera calibration algorithms and stereo matching techniques for depth estimation.</p>
                         <div class="project-tech">
+                            <span class="tech-tag">OpenCV</span>
                             <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Django</span>
+                            <span class="tech-tag">Computer Vision</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" class="project-link">
+                            <a href="https://github.com/JunwuE/IPMV" class="project-link" target="_blank">
                                 <i class="fab fa-github"></i>
                                 GitHub
-                            </a>
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i>
-                                演示
                             </a>
                         </div>
                     </div>
@@ -159,23 +282,20 @@
 
                 <div class="project-card">
                     <div class="project-image">
-                        <i class="fas fa-globe"></i>
+                        <i class="fas fa-robot"></i>
                     </div>
                     <div class="project-content">
-                        <h3>项目三</h3>
-                        <p>第三个项目的描述，展示您的多样化技能。</p>
+                        <h3>Autonomous Water-Surface Robot</h3>
+                        <p>Multi-directional garbage detection and collection robot for water surface cleaning, integrating computer vision and autonomous navigation.</p>
                         <div class="project-tech">
-                            <span class="tech-tag">Vue.js</span>
-                            <span class="tech-tag">Express</span>
+                            <span class="tech-tag">Robotics</span>
+                            <span class="tech-tag">Computer Vision</span>
+                            <span class="tech-tag">Autonomous Navigation</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" class="project-link">
+                            <a href="https://github.com/JunwuE/water_robot" class="project-link" target="_blank">
                                 <i class="fab fa-github"></i>
                                 GitHub
-                            </a>
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i>
-                                演示
                             </a>
                         </div>
                     </div>
@@ -187,37 +307,41 @@
     <!-- 联系我部分 -->
     <section id="contact" class="contact">
         <div class="container">
-            <h2 class="section-title">联系我</h2>
+            <h2 class="section-title">Contact</h2>
             <div class="contact-content">
                 <div class="contact-info">
-                    <h3>让我们一起合作</h3>
-                    <p>如果您有任何项目想法或合作机会，请随时联系我。我很乐意听到您的想法！</p>
+                    <h3>Get in Touch</h3>
+                    <p>I am always open to discussing research opportunities, collaborations, and innovative projects in computer vision and robotics.</p>
                     <div class="contact-methods">
                         <div class="contact-method">
                             <i class="fas fa-envelope"></i>
-                            <span>your.email@example.com</span>
+                            <span>2152482@tongji.edu.cn</span>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-phone"></i>
+                            <span>+86 18801615808</span>
                         </div>
                         <div class="contact-method">
                             <i class="fab fa-github"></i>
                             <span>github.com/JunwuE</span>
                         </div>
                         <div class="contact-method">
-                            <i class="fab fa-linkedin"></i>
-                            <span>LinkedIn Profile</span>
+                            <i class="fas fa-university"></i>
+                            <span>Tongji University, Shanghai, China</span>
                         </div>
                     </div>
                 </div>
                 <form class="contact-form">
                     <div class="form-group">
-                        <input type="text" placeholder="您的姓名" required>
+                        <input type="text" placeholder="Your Name" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" placeholder="您的邮箱" required>
+                        <input type="email" placeholder="Your Email" required>
                     </div>
                     <div class="form-group">
-                        <textarea placeholder="您的消息" rows="5" required></textarea>
+                        <textarea placeholder="Your Message" rows="5" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">发送消息</button>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
                 </form>
             </div>
         </div>
@@ -226,7 +350,7 @@
     <!-- 页脚 -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Junwu E. 保留所有权利。</p>
+            <p>&copy; 2025 Junwu E. All rights reserved.</p>
             <div class="social-links">
                 <a href="#"><i class="fab fa-github"></i></a>
                 <a href="#"><i class="fab fa-linkedin"></i></a>

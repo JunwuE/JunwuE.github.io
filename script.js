@@ -226,23 +226,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // 页面加载时执行一次
     animateOnScroll();
 
-    // 社交链接点击效果
-    const socialLinks = document.querySelectorAll('.social-links a');
-    socialLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            showNotification('社交链接功能需要配置具体的URL地址', 'info');
-        });
-    });
+    // 社交链接现在可以正常跳转，不需要阻止默认行为
 
-    // 项目链接点击效果
-    const projectLinks = document.querySelectorAll('.project-link');
-    projectLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            showNotification('项目链接需要配置具体的GitHub或演示URL', 'info');
-        });
-    });
+    // 项目链接现在可以正常跳转，不需要阻止默认行为
 
     // 添加页面加载完成的淡入效果
     document.body.style.opacity = '0';

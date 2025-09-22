@@ -82,34 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 联系表单处理
-    const contactForm = document.querySelector('.contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // 获取表单数据
-            const formData = new FormData(this);
-            const name = this.querySelector('input[type="text"]').value;
-            const email = this.querySelector('input[type="email"]').value;
-            const message = this.querySelector('textarea').value;
-
-            // 简单的表单验证
-            if (!name || !email || !message) {
-                showNotification('请填写所有必填字段', 'error');
-                return;
-            }
-
-            if (!isValidEmail(email)) {
-                showNotification('请输入有效的邮箱地址', 'error');
-                return;
-            }
-
-            // 模拟发送邮件（实际项目中需要后端支持）
-            showNotification('消息已发送！感谢您的联系。', 'success');
-            this.reset();
-        });
-    }
+    // 联系表单已移除，现在使用直接的联系方式
 
     // 邮箱验证函数
     function isValidEmail(email) {

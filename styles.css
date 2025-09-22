@@ -530,10 +530,11 @@ body {
 }
 
 .contact-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .contact-info h3 {
@@ -559,6 +560,7 @@ body {
     align-items: center;
     gap: 1rem;
     color: #666;
+    margin-bottom: 1rem;
 }
 
 .contact-method i {
@@ -567,37 +569,18 @@ body {
     width: 20px;
 }
 
-.contact-form {
-    background: white;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+.contact-method a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
 
-.form-group {
-    margin-bottom: 1.5rem;
+.contact-method a:hover {
+    color: #000;
+    text-decoration: underline;
 }
 
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 1rem;
-    border: 2px solid #e1e8ed;
-    border-radius: 10px;
-    font-family: inherit;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #2c2c2c;
-}
-
-.form-group textarea {
-    resize: vertical;
-}
+/* 表单样式已移除 */
 
 /* 页脚 */
 .footer {
@@ -667,8 +650,8 @@ body {
     }
 
     .contact-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+        max-width: 100%;
+        padding: 0 1rem;
     }
 
     .footer .container {

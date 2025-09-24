@@ -201,6 +201,47 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 社交链接现在可以正常跳转，不需要阻止默认行为
 
+    // 让 research / publications / projects 中含链接的卡片整块可点击
+    function makeCardsClickable(cardSelector) {
+        const cards = document.querySelectorAll(cardSelector);
+        cards.forEach(card => {
+            // 找到卡片内第一个可跳转的链接
+            const innerLink = card.querySelector('a[href]');
+            if (!innerLink) {
+                return; // 无链接则跳过
+            }
+
+            // 标记样式以显示可点击
+            card.classList.add('clickable');
+
+            // 避免重复绑定
+            if (card.__cardClickableBound) return;
+            card.__cardClickableBound = true;
+
+            card.addEventListener('click', function(e) {
+                // 若直接点击了内部链接，交给浏览器默认行为
+                const path = e.composedPath ? e.composedPath() : (e.path || []);
+                const clickedAnchor = path && path.find && path.find(n => n.tagName === 'A');
+                if (clickedAnchor) return;
+
+                const href = innerLink.getAttribute('href');
+                const target = innerLink.getAttribute('target');
+                if (!href) return;
+
+                if (target === '_blank') {
+                    window.open(href, '_blank', 'noopener');
+                } else {
+                    window.location.href = href;
+                }
+            });
+        });
+    }
+
+    // 应用于三个区块
+    makeCardsClickable('.research-item');
+    makeCardsClickable('.publication-item');
+    makeCardsClickable('.project-card');
+
     // 项目链接现在可以正常跳转，不需要阻止默认行为
 
     // 添加页面加载完成的淡入效果

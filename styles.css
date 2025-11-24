@@ -11,15 +11,20 @@ html {
 
 body {
     font-family: 'Poppins', sans-serif;
-    line-height: 1.6;
-    color: #2c2c2c;
-    background-color: #ffffff;
+    line-height: 1.7;
+    color: #333;
+    background-color: #fcfcfc;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lora', serif;
+    color: #111;
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 24px;
 }
 
 /* 导航栏样式 */
@@ -27,17 +32,17 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     z-index: 1000;
     transition: all 0.3s ease;
 }
 
 .nav-container {
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 1rem 20px;
+    padding: 1rem 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -106,39 +111,54 @@ body {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background: #ffffff;
+    background-color: #ffffff;
     color: #2c2c2c;
     padding-top: 80px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #eee;
 }
 
 .hero-container {
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 24px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 5rem;
     align-items: center;
 }
 
 .hero-title {
-    font-size: 3.5rem;
+    font-size: 4rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    line-height: 1.2;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
 }
 
 .highlight {
-    color: #1a1a1a;
-    font-weight: 700;
+    color: #000;
+    position: relative;
+    z-index: 1;
+}
+
+.highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 100%;
+    height: 12px;
+    background-color: rgba(0, 0, 0, 0.08);
+    z-index: -1;
+    transform: rotate(-1deg);
 }
 
 .hero-subtitle {
-    font-size: 1.5rem;
-    font-weight: 500;
+    font-size: 1.35rem;
+    font-weight: 400;
     margin-bottom: 1.5rem;
-    color: #666;
+    color: #555;
+    font-family: 'Poppins', sans-serif;
 }
 
 .hero-description {
@@ -213,14 +233,15 @@ body {
 }
 
 .image-placeholder {
-    width: 300px;
-    height: 300px;
+    width: 320px;
+    height: 320px;
     border-radius: 50%;
-    background: #f8f8f8;
+    background: #f5f5f5;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid #e0e0e0;
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.05);
 }
 
 .image-placeholder i {
@@ -298,10 +319,57 @@ body {
     line-height: 1.8;
 }
 
-.skills h3 {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
+.skills h3,
+.about-text h3 {
+    font-size: 1.4rem; /* 统一标题大小 */
+    margin-bottom: 1.5rem;
     color: #2c3e50;
+    font-weight: 600;
+    text-align: left; /* 确保左对齐 */
+}
+
+/* 视频 Demo 区域样式 */
+.video-demo {
+    margin-top: 3rem; /* 与上方 Skills 拉开距离 */
+}
+
+.video-container {
+    width: 100%;
+    max-width: 500px; /* 限制最大宽度，防止竖屏视频太高 */
+    margin: 0 auto; /* 居中 */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border: 1px solid rgba(0,0,0,0.05);
+    background: #000;
+    display: flex; /* 让视频自适应 */
+    justify-content: center;
+    align-items: center;
+}
+
+.video-container video {
+    width: 100%;
+    height: auto; /* 自适应高度 */
+    display: block;
+}
+
+/* 移除旧的 absolute 定位样式 */
+/*.video-container iframe,
+.video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}*/
+
+.video-caption {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+    text-align: center;
 }
 
 .skills-grid {
@@ -324,26 +392,66 @@ body {
     text-decoration: none;
 }
 
+/* 卡片通用高级样式 */
+.research-item, .publication-item, .project-card, .contact-info, .skill-item {
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    /* 3D 效果支持 */
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+/* 移除原本简单的 hover transform，交给 JS 控制 */
+.research-item:hover, .publication-item:hover {
+    /* transform: translateY(-4px);  <-- 移除此行，防止与 JS 冲突 */
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+/* project-card 和 skill-item 的 hover transform 已由 JS 接管 */
+.project-card:hover, .skill-item:hover {
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
 .skill-item {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 1.5rem;
     background: white;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    /* transition 由 JS 动态控制，这里保留基础属性的 transition */
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    transform-style: preserve-3d;
 }
 
 .skill-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    /* transform 由 JS 控制 */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    border-color: rgba(0,0,0,0.1);
 }
 
 .skill-item i {
     font-size: 2.5rem;
-    color: #3498db;
+    color: #333;
     margin-bottom: 0.5rem;
+}
+
+/* 技能 Logo 图片样式：显示原色 */
+.skill-icon {
+    width: auto;
+    height: 2.5rem;
+    margin-bottom: 0.5rem;
+    object-fit: contain;
+    /* 移除强制变黑的滤镜 */
+    /* filter: grayscale(100%) brightness(0); */
+    transition: all 0.3s ease;
+}
+
+.skill-item:hover .skill-icon {
+    transform: scale(1.1);
 }
 
 .skill-item span {
@@ -515,17 +623,18 @@ body {
 }
 
 .project-image {
-    height: 200px;
-    background: #2c2c2c;
+    height: 220px; /* 稍微加高 */
+    background: #f5f5f5; /* 浅灰背景 */
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: #333;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
 .project-image i {
-    font-size: 4rem;
-    opacity: 0.8;
+    font-size: 3.5rem; /* 图标稍微调小，更精致 */
+    opacity: 0.6;
 }
 
 .project-content {
@@ -807,6 +916,83 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* 项目预览浮窗 */
+.project-preview-tooltip {
+    position: fixed;
+    z-index: 9999;
+    width: 320px;
+    background: #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.1s ease;
+    left: 0;
+    top: 0;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.project-preview-tooltip.active {
+    opacity: 1;
+}
+
+.preview-image-container {
+    width: 100%;
+    height: 180px; /* 16:9 左右的比例 */
+    background: #000;
+}
+
+.preview-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* 确保完整显示，不裁剪 */
+    background: #000; /* 图片周围留白部分为纯黑 */
+    display: block;
+}
+
+.preview-info {
+    padding: 12px 16px;
+    background: rgba(20, 20, 20, 0.95);
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.repo-name {
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.repo-stats {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+    font-size: 0.85rem;
+    color: #ddd; /* 改为亮灰色，更清晰 */
+}
+
+.repo-stats i {
+    color: #fff; /* 图标改为纯白 */
+    margin-right: 4px;
+}
+
+/* 针对 JS 动态插入的 span (View on IEEE...) */
+.preview-info span {
+    color: #fff; /* 关键信息改为纯白 */
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.preview-info span i {
+    margin-right: 6px;
+    color: #3498db; /* 链接图标可以用蓝色点缀，或者保持白色 */
 }
 
 .hero-content > * {

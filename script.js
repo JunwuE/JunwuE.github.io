@@ -242,6 +242,192 @@ document.addEventListener('DOMContentLoaded', function() {
     makeCardsClickable('.publication-item');
     makeCardsClickable('.project-card');
 
+    // --- 3D Tilt Effect ---
+    function init3DTilt(selector) {
+        const elements = document.querySelectorAll(selector);
+        
+        elements.forEach(element => {
+            element.addEventListener('mousemove', (e) => {
+                const rect = element.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // 计算旋转角度
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -10; // 最大旋转 10度
+                const rotateY = ((x - centerX) / centerX) * 10;
+
+                // 应用变换
+                element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+            });
+
+            element.addEventListener('mouseleave', () => {
+                // 复位
+                element.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            });
+            
+            // 添加过渡效果，使复位更平滑，但移动时要跟手（我们在 CSS 中处理）
+            element.style.transition = 'transform 0.1s ease-out';
+        });
+    }
+
+    // 初始化 3D 倾斜效果
+    // init3DTilt('.image-placeholder'); // 移除头像浮动
+    init3DTilt('.project-card');
+    init3DTilt('.skill-item');
+    init3DTilt('.research-item');     // 添加 Research
+    init3DTilt('.publication-item');  // 添加 Publication
+
+    // --- 项目预览浮窗 (自定义图 + GitHub 信息) ---
+    function initProjectPreview() {
+        // 1. 创建预览容器
+        const tooltip = document.createElement('div');
+        tooltip.className = 'project-preview-tooltip';
+        
+        // 内部结构：图片层 + 信息层
+        tooltip.innerHTML = `
+            <div class="preview-image-container">
+                <img class="preview-img" src="" alt="Project Preview">
+            </div>
+            <div class="preview-info">
+                <div class="repo-name"></div>
+                <div class="repo-stats">
+                    <!-- 可以在这里扩展 Star 数等，目前先保持简洁 -->
+                </div>
+            </div>
+        `;
+        document.body.appendChild(tooltip);
+
+        const img = tooltip.querySelector('.preview-img');
+        const nameEl = tooltip.querySelector('.repo-name');
+        const infoEl = tooltip.querySelector('.preview-info');
+
+        // 2. 选择目标卡片
+        const cards = document.querySelectorAll('.research-item, .project-card, .publication-item');
+
+        cards.forEach(card => {
+            // 初始化变量
+            let imgUrl = '';
+            let title = '';
+            let desc = '';
+            let isPublication = card.classList.contains('publication-item');
+
+            // --- 情况 A: Publication 卡片 ---
+            if (isPublication) {
+                const link = card.querySelector('a[href]');
+                if (link) {
+                    const href = link.getAttribute('href');
+                    title = link.textContent.trim(); // 论文标题
+                    
+                    // 根据域名判断来源并设置 Logo
+                    if (href.includes('ieeexplore.ieee.org')) {
+                        imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/2/21/IEEE_logo.svg'; // IEEE Logo
+                        desc = 'View on IEEE Xplore';
+                    } else if (href.includes('arxiv.org')) {
+                        imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/b/b5/ArXiv_logo_2011.svg'; // arXiv Logo
+                        desc = 'View on arXiv';
+                    } else if (href.includes('thecvf.com')) {
+                        imgUrl = 'https://thecvf.com/images/cvf_logo.png'; // CVF Logo
+                        desc = 'View on CVF Open Access';
+                    } else {
+                        // 默认文档图标
+                        imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg';
+                        desc = 'View Paper';
+                    }
+                }
+            } 
+            // --- 情况 B: Research/Project 卡片 (保持原有逻辑) ---
+            else {
+                const localImg = card.getAttribute('data-preview-img');
+                const link = card.querySelector('a[href*="github.com"]');
+                
+                imgUrl = localImg;
+                
+                if (link) {
+                    const href = link.getAttribute('href');
+                    const match = href.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+                    if (match) {
+                        const user = match[1];
+                        const repo = match[2];
+                        title = repo;
+                        desc = 'GitHub Repository';
+                        
+                        if (!imgUrl) {
+                            imgUrl = `https://opengraph.githubassets.com/1/${user}/${repo}`;
+                        }
+                    }
+                }
+            }
+
+            // 如果没有有效信息，跳过
+            if (!imgUrl && !title) return;
+
+            // 绑定事件
+            card.addEventListener('mouseenter', () => {
+                // 特殊处理 Publication 的图片样式 (contain 且有 padding)
+                if (isPublication) {
+                    img.style.objectFit = 'contain';
+                    img.style.padding = '40px'; // 增加 padding，让 Logo 看起来更小更精致
+                    img.style.background = '#fff'; // Logo 通常需要白底
+                } else {
+                    img.style.objectFit = 'contain'; // Research图保持contain
+                    img.style.padding = '0';
+                    img.style.background = '#000';
+                }
+
+                img.src = imgUrl;
+                
+                if (title) {
+                    nameEl.textContent = title;
+                    
+                    // 如果有描述信息，显示出来
+                    if (desc) {
+                        let statsHtml = `<span><i class="fas fa-external-link-alt"></i> ${desc}</span>`;
+                        // 如果是 Publication，还可以尝试显示摘要（如果有 data-abstract）
+                        const abstract = card.getAttribute('data-abstract');
+                        if (abstract) {
+                            // 增加摘要显示长度，且样式更明显
+                            statsHtml += `<p style="margin-top:10px; font-size: 0.85rem; color: #ccc; line-height: 1.5; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px;">${abstract.substring(0, 150)}${abstract.length > 150 ? '...' : ''}</p>`;
+                        }
+                        infoEl.innerHTML = statsHtml;
+                        infoEl.style.display = 'block';
+                    } else {
+                        infoEl.style.display = 'none';
+                    }
+                } else {
+                    infoEl.style.display = 'none'; // 纯图片模式
+                }
+                
+                tooltip.classList.add('active');
+            });
+
+            card.addEventListener('mousemove', (e) => {
+                const offsetX = 20;
+                const offsetY = 20;
+                let left = e.clientX + offsetX;
+                let top = e.clientY + offsetY;
+
+                if (left + 320 > window.innerWidth) {
+                    left = e.clientX - 320 - offsetX;
+                }
+                if (top + 200 > window.innerHeight) {
+                    top = e.clientY - 200 - offsetY;
+                }
+
+                tooltip.style.left = `${left}px`;
+                tooltip.style.top = `${top}px`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                tooltip.classList.remove('active');
+            });
+        });
+    }
+
+    initProjectPreview();
+
     // 项目链接现在可以正常跳转，不需要阻止默认行为
 
     // 添加页面加载完成的淡入效果

@@ -1,14 +1,14 @@
 // 等待DOM加载完成
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // 获取导航相关元素
     const navToggle = document.getElementById('nav-toggle');
     const navMenu = document.getElementById('nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
 
     // 移动端导航切换
-    navToggle.addEventListener('click', function() {
+    navToggle.addEventListener('click', function () {
         navMenu.classList.toggle('active');
-        
+
         // 切换汉堡菜单动画
         const bars = navToggle.querySelectorAll('.bar');
         bars.forEach(bar => {
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 点击导航链接时关闭移动端菜单
     navLinks.forEach(link => {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', function () {
             navMenu.classList.remove('active');
             const bars = navToggle.querySelectorAll('.bar');
             bars.forEach(bar => {
@@ -29,11 +29,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 平滑滚动到指定部分
     navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             const targetSection = document.querySelector(targetId);
-            
+
             if (targetSection) {
                 const offsetTop = targetSection.offsetTop - 70; // 考虑固定导航栏高度
                 window.scrollTo({
@@ -45,9 +45,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // 滚动时更新导航栏样式
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         const navbar = document.querySelector('.navbar');
-        
+
         if (window.scrollY > 100) {
             navbar.style.background = 'rgba(255, 255, 255, 0.98)';
             navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
@@ -133,11 +133,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // 技能项目悬停效果
     const skillItems = document.querySelectorAll('.skill-item');
     skillItems.forEach(item => {
-        item.addEventListener('mouseenter', function() {
+        item.addEventListener('mouseenter', function () {
             this.style.transform = 'translateY(-5px) scale(1.05)';
         });
 
-        item.addEventListener('mouseleave', function() {
+        item.addEventListener('mouseleave', function () {
             this.style.transform = 'translateY(0) scale(1)';
         });
     });
@@ -145,11 +145,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // 项目卡片悬停效果
     const projectCards = document.querySelectorAll('.project-card');
     projectCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
+        card.addEventListener('mouseenter', function () {
             this.style.transform = 'translateY(-10px) scale(1.02)';
         });
 
-        card.addEventListener('mouseleave', function() {
+        card.addEventListener('mouseleave', function () {
             this.style.transform = 'translateY(0) scale(1)';
         });
     });
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function typeWriter(element, text, speed = 50) {
         let i = 0;
         element.innerHTML = '';
-        
+
         function type() {
             if (i < text.length) {
                 element.innerHTML += text.charAt(i);
@@ -166,18 +166,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(type, speed);
             }
         }
-        
+
         type();
     }
 
     // 页面加载时的动画效果
     function animateOnScroll() {
         const elements = document.querySelectorAll('.skill-item, .project-card, .research-item, .publication-item');
-        
+
         elements.forEach(element => {
             const elementTop = element.getBoundingClientRect().top;
             const elementVisible = 150;
-            
+
             if (elementTop < window.innerHeight - elementVisible) {
                 element.style.opacity = '1';
                 element.style.transform = 'translateY(0)';
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 监听滚动事件
     window.addEventListener('scroll', animateOnScroll);
-    
+
     // 页面加载时执行一次
     animateOnScroll();
 
@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (card.__cardClickableBound) return;
             card.__cardClickableBound = true;
 
-            card.addEventListener('click', function(e) {
+            card.addEventListener('click', function (e) {
                 // 若直接点击了内部链接，交给浏览器默认行为
                 const path = e.composedPath ? e.composedPath() : (e.path || []);
                 const clickedAnchor = path && path.find && path.find(n => n.tagName === 'A');
@@ -245,17 +245,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- 3D Tilt Effect ---
     function init3DTilt(selector) {
         const elements = document.querySelectorAll(selector);
-        
+
         elements.forEach(element => {
             element.addEventListener('mousemove', (e) => {
                 const rect = element.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                
+
                 // 计算旋转角度
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                
+
                 const rotateX = ((y - centerY) / centerY) * -10; // 最大旋转 10度
                 const rotateY = ((x - centerX) / centerX) * 10;
 
@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // 复位
                 element.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
             });
-            
+
             // 添加过渡效果，使复位更平滑，但移动时要跟手（我们在 CSS 中处理）
             element.style.transition = 'transform 0.1s ease-out';
         });
@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 1. 创建预览容器
         const tooltip = document.createElement('div');
         tooltip.className = 'project-preview-tooltip';
-        
+
         // 内部结构：图片层 + 信息层
         tooltip.innerHTML = `
             <div class="preview-image-container">
@@ -304,8 +304,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const nameEl = tooltip.querySelector('.repo-name');
         const infoEl = tooltip.querySelector('.preview-info');
 
-        // 2. 选择目标卡片
-        const cards = document.querySelectorAll('.research-item, .project-card, .publication-item');
+        // 2. 选择目标卡片 (Removed .project-card from selection)
+        const cards = document.querySelectorAll('.research-item, .publication-item');
 
         cards.forEach(card => {
             // 初始化变量
@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (link) {
                     const href = link.getAttribute('href');
                     title = link.textContent.trim(); // 论文标题
-                    
+
                     // 根据域名判断来源并设置 Logo
                     if (href.includes('ieeexplore.ieee.org')) {
                         imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/2/21/IEEE_logo.svg'; // IEEE Logo
@@ -337,14 +337,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         desc = 'View Paper';
                     }
                 }
-            } 
+            }
             // --- 情况 B: Research/Project 卡片 (保持原有逻辑) ---
             else {
                 const localImg = card.getAttribute('data-preview-img');
                 const link = card.querySelector('a[href*="github.com"]');
-                
+
                 imgUrl = localImg;
-                
+
                 if (link) {
                     const href = link.getAttribute('href');
                     const match = href.match(/github\.com\/([^\/]+)\/([^\/]+)/);
@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         const repo = match[2];
                         title = repo;
                         desc = 'GitHub Repository';
-                        
+
                         if (!imgUrl) {
                             imgUrl = `https://opengraph.githubassets.com/1/${user}/${repo}`;
                         }
@@ -378,10 +378,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 img.src = imgUrl;
-                
+
                 if (title) {
                     nameEl.textContent = title;
-                    
+
                     // 如果有描述信息，显示出来
                     if (desc) {
                         let statsHtml = `<span><i class="fas fa-external-link-alt"></i> ${desc}</span>`;
@@ -399,7 +399,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     infoEl.style.display = 'none'; // 纯图片模式
                 }
-                
+
                 tooltip.classList.add('active');
             });
 
@@ -428,18 +428,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
     initProjectPreview();
 
+    // --- 预加载图片以提升悬停体验 ---
+    function preloadImages() {
+        const previewItems = document.querySelectorAll('[data-preview-img]');
+        console.log('开始预加载预览图片...');
+
+        previewItems.forEach(item => {
+            const imgUrl = item.getAttribute('data-preview-img');
+            if (imgUrl) {
+                const img = new Image();
+                img.src = imgUrl;
+            }
+        });
+    }
+
+    // 延迟一点执行预加载，优先保证首屏渲染
+    setTimeout(preloadImages, 2000);
+
     // 项目链接现在可以正常跳转，不需要阻止默认行为
 
     // 添加页面加载完成的淡入效果
     document.body.style.opacity = '0';
     document.body.style.transition = 'opacity 0.5s ease';
-    
+
     setTimeout(() => {
         document.body.style.opacity = '1';
     }, 100);
 
     // 键盘导航支持
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
         // ESC键关闭移动端菜单
         if (e.key === 'Escape') {
             navMenu.classList.remove('active');
@@ -452,7 +469,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 性能优化：节流滚动事件
     let ticking = false;
-    
+
     function updateOnScroll() {
         if (!ticking) {
             requestAnimationFrame(() => {

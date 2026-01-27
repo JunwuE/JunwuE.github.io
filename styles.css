@@ -16,7 +16,12 @@ body {
     background-color: #fcfcfc;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: 'Lora', serif;
     color: #111;
 }
@@ -240,8 +245,8 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid rgba(0,0,0,0.08);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
 }
 
 .image-placeholder i {
@@ -321,35 +326,42 @@ h1, h2, h3, h4, h5, h6 {
 
 .skills h3,
 .about-text h3 {
-    font-size: 1.4rem; /* 统一标题大小 */
+    font-size: 1.4rem;
+    /* 统一标题大小 */
     margin-bottom: 1.5rem;
     color: #2c3e50;
     font-weight: 600;
-    text-align: left; /* 确保左对齐 */
+    text-align: left;
+    /* 确保左对齐 */
 }
 
 /* 视频 Demo 区域样式 */
 .video-demo {
-    margin-top: 3rem; /* 与上方 Skills 拉开距离 */
+    margin-top: 3rem;
+    /* 与上方 Skills 拉开距离 */
 }
 
 .video-container {
     width: 100%;
-    max-width: 500px; /* 限制最大宽度，防止竖屏视频太高 */
-    margin: 0 auto; /* 居中 */
+    max-width: 500px;
+    /* 限制最大宽度，防止竖屏视频太高 */
+    margin: 0 auto;
+    /* 居中 */
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     background: #000;
-    display: flex; /* 让视频自适应 */
+    display: flex;
+    /* 让视频自适应 */
     justify-content: center;
     align-items: center;
 }
 
 .video-container video {
     width: 100%;
-    height: auto; /* 自适应高度 */
+    height: auto;
+    /* 自适应高度 */
     display: block;
 }
 
@@ -393,7 +405,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* 卡片通用高级样式 */
-.research-item, .publication-item, .project-card, .contact-info, .skill-item {
+.research-item,
+.publication-item,
+.project-card,
+.contact-info,
+.skill-item {
     border-radius: 12px;
     border: 1px solid rgba(0, 0, 0, 0.06);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
@@ -404,13 +420,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* 移除原本简单的 hover transform，交给 JS 控制 */
-.research-item:hover, .publication-item:hover {
+.research-item:hover,
+.publication-item:hover {
     /* transform: translateY(-4px);  <-- 移除此行，防止与 JS 冲突 */
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
 }
+
 /* project-card 和 skill-item 的 hover transform 已由 JS 接管 */
-.project-card:hover, .skill-item:hover {
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+.project-card:hover,
+.skill-item:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
 }
 
 .skill-item {
@@ -420,7 +439,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: 1.5rem;
     background: white;
     border-radius: 12px;
-    border: 1px solid rgba(0,0,0,0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
     /* transition 由 JS 动态控制，这里保留基础属性的 transition */
     transition: box-shadow 0.3s ease, border-color 0.3s ease;
@@ -430,7 +449,7 @@ h1, h2, h3, h4, h5, h6 {
 .skill-item:hover {
     /* transform 由 JS 控制 */
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-    border-color: rgba(0,0,0,0.1);
+    border-color: rgba(0, 0, 0, 0.1);
 }
 
 .skill-item i {
@@ -473,7 +492,8 @@ h1, h2, h3, h4, h5, h6 {
 .research-item {
     margin-bottom: 2rem;
     padding: 1.5rem;
-    background: #ffffff; /* 与 .publication-item 一致 */
+    background: #ffffff;
+    /* 与 .publication-item 一致 */
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
@@ -604,15 +624,17 @@ h1, h2, h3, h4, h5, h6 {
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
+    gap: 1.5rem;
 }
 
 .project-card {
     background: white;
-    border-radius: 15px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .project-card:hover {
@@ -622,28 +644,18 @@ h1, h2, h3, h4, h5, h6 {
     color: #ffffff;
 }
 
-.project-image {
-    height: 220px; /* 稍微加高 */
-    background: #f5f5f5; /* 浅灰背景 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #333;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-}
-
-.project-image i {
-    font-size: 3.5rem; /* 图标稍微调小，更精致 */
-    opacity: 0.6;
-}
+/* .project-image has been removed */
 
 .project-content {
-    padding: 2rem;
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .project-content h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
     color: #2c3e50;
 }
 
@@ -654,8 +666,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .project-content p {
     color: #666;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     line-height: 1.6;
+    font-size: 0.95rem;
 }
 
 .project-tech {
@@ -684,6 +697,7 @@ h1, h2, h3, h4, h5, h6 {
 .project-links {
     display: flex;
     gap: 1rem;
+    margin-top: auto;
 }
 
 .project-link {
@@ -853,7 +867,7 @@ h1, h2, h3, h4, h5, h6 {
         max-width: 100%;
         padding: 0 1rem;
     }
-    
+
     .contact-info {
         padding: 2rem;
     }
@@ -912,6 +926,7 @@ h1, h2, h3, h4, h5, h6 {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -926,13 +941,13 @@ h1, h2, h3, h4, h5, h6 {
     background: #1a1a1a;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.2s ease, transform 0.1s ease;
     left: 0;
     top: 0;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .project-preview-tooltip.active {
@@ -941,22 +956,25 @@ h1, h2, h3, h4, h5, h6 {
 
 .preview-image-container {
     width: 100%;
-    height: 180px; /* 16:9 左右的比例 */
+    height: 180px;
+    /* 16:9 左右的比例 */
     background: #000;
 }
 
 .preview-image-container img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* 确保完整显示，不裁剪 */
-    background: #000; /* 图片周围留白部分为纯黑 */
+    object-fit: contain;
+    /* 确保完整显示，不裁剪 */
+    background: #000;
+    /* 图片周围留白部分为纯黑 */
     display: block;
 }
 
 .preview-info {
     padding: 12px 16px;
     background: rgba(20, 20, 20, 0.95);
-    border-top: 1px solid rgba(255,255,255,0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .repo-name {
@@ -974,17 +992,20 @@ h1, h2, h3, h4, h5, h6 {
     gap: 10px;
     margin-top: 4px;
     font-size: 0.85rem;
-    color: #ddd; /* 改为亮灰色，更清晰 */
+    color: #ddd;
+    /* 改为亮灰色，更清晰 */
 }
 
 .repo-stats i {
-    color: #fff; /* 图标改为纯白 */
+    color: #fff;
+    /* 图标改为纯白 */
     margin-right: 4px;
 }
 
 /* 针对 JS 动态插入的 span (View on IEEE...) */
 .preview-info span {
-    color: #fff; /* 关键信息改为纯白 */
+    color: #fff;
+    /* 关键信息改为纯白 */
     font-weight: 500;
     display: flex;
     align-items: center;
@@ -992,10 +1013,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .preview-info span i {
     margin-right: 6px;
-    color: #3498db; /* 链接图标可以用蓝色点缀，或者保持白色 */
+    color: #3498db;
+    /* 链接图标可以用蓝色点缀，或者保持白色 */
 }
 
-.hero-content > * {
+.hero-content>* {
     animation: fadeInUp 0.8s ease-out;
 }
 

@@ -254,17 +254,25 @@ h6 {
     50% { opacity: 0; }
 }
 
-/* === 机器人（右侧，方形） === */
-.robot-pane {
+/* === 右侧栏（小马 + 信息卡） === */
+.right-col {
     flex: 0 0 auto;
-    aspect-ratio: 1 / 1;
+    width: 50%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
     height: 100%;
-    max-width: 50%;
+}
+
+.robot-pane {
+    flex: 1 1 auto;
+    min-height: 0;
     position: relative;
     background: #ffffff;
     border: 1px solid #d0d0d0;
     border-radius: 6px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
     overflow: hidden;
     cursor: pointer;
 }
@@ -273,19 +281,86 @@ h6 {
     width: 100%;
     height: 100%;
     display: block;
-    image-rendering: pixelated;
+}
+
+/* 信息卡行 */
+.info-row {
+    flex: 0 0 auto;
+    display: flex;
+    gap: 0.8rem;
+}
+
+.info-card {
+    flex: 1;
+    background: #ffffff;
+    border: 1px solid #d0d0d0;
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    padding: 1rem 1.2rem;
+}
+
+.info-card h4 {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #555;
+    margin: 0 0 0.7rem 0;
+    padding-bottom: 0.45rem;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.info-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #999;
+    margin: 0 0 0.15rem 0;
+    font-weight: 600;
+}
+
+.info-value {
+    font-size: 0.95rem;
+    color: #111;
+    font-weight: 600;
+    margin: 0 0 0.1rem 0;
+}
+
+.info-detail {
+    font-size: 0.82rem;
+    color: #777;
+    margin: 0;
+}
+
+.interest-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.interest-list li {
+    font-size: 0.8rem;
+    color: #444;
+    background: #f4f4f4;
+    padding: 0.2rem 0.65rem;
+    border-radius: 3px;
+    border: 1px solid #e5e5e5;
 }
 
 .robot-status {
     position: absolute;
-    top: 12px;
-    right: 12px;
+    top: 10px;
+    right: 10px;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.72rem;
-    color: #555;
+    font-size: 0.68rem;
+    color: #888;
     background: rgba(255, 255, 255, 0.85);
     border: 1px solid #d0d0d0;
-    padding: 3px 8px;
+    padding: 2px 7px;
     border-radius: 3px;
     letter-spacing: 1px;
 }
@@ -293,9 +368,9 @@ h6 {
 .robot-speech {
     position: absolute;
     left: 50%;
-    bottom: 18px;
+    bottom: 14px;
     transform: translateX(-50%);
-    max-width: 86%;
+    max-width: 88%;
     background: #ffffff;
     border: 1px solid #333;
     border-radius: 4px;
@@ -339,10 +414,14 @@ h6 {
     .terminal-pane {
         height: 55vh;
     }
-    .robot-pane {
-        width: 100%;
-        max-width: 100%;
+    .right-col {
         height: auto;
+    }
+    .robot-pane {
+        height: 220px;
+    }
+    .info-row {
+        flex-direction: column;
     }
 }
 
@@ -1319,6 +1398,62 @@ h6 {
     font-size: 0.82rem;
     margin-bottom: 0.4rem;
     font-family: 'Courier New', Courier, monospace;
+}
+
+/* ========= Contact 页 ========= */
+.contact-intro {
+    color: #555;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+.contact-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contact-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 1.4rem;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    background: #fafafa;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+a.contact-card:hover {
+    border-color: #c0c0c0;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+.contact-card i {
+    font-size: 1.3rem;
+    color: #555;
+    width: 28px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.contact-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #999;
+    font-weight: 600;
+    width: 70px;
+    flex-shrink: 0;
+}
+
+.contact-value {
+    font-size: 0.95rem;
+    color: #222;
 }
 
 /* 当前页导航高亮 */

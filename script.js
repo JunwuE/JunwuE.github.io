@@ -724,15 +724,12 @@ function initRobot() {
 
     const ctx = canvas.getContext('2d', { willReadFrequently: true });
     const W = canvas.width;   // 720
-    const H = canvas.height;  // 720 (square)
+    const H = canvas.height;  // 720
 
-    // Offscreen render target
     const off = document.createElement('canvas');
-    off.width = W;
-    off.height = H;
+    off.width = W; off.height = H;
     const o = off.getContext('2d', { willReadFrequently: true });
 
-    // 8x8 Bayer matrix
     const bayer = [
         [ 0, 48, 12, 60,  3, 51, 15, 63],
         [32, 16, 44, 28, 35, 19, 47, 31],
@@ -745,54 +742,30 @@ function initRobot() {
     ];
 
     let frame = 0;
-    let targetMX = 0, targetMY = 0;
-    let smoothMX = 0, smoothMY = 0;
-    let proximity = 0;
-    let state = 'idle'; // idle | talking | blink
+    let targetMX = 0, targetMY = 0, smoothMX = 0, smoothMY = 0;
+    let state = 'idle';
     let blinkTimer = 0;
-
-    // 讲话气泡
-    let speechText = '';
-    let speechShown = '';
-    let speechIdx = 0;
-    let speechTimeout = null;
-    let typingInterval = null;
+    let speechTimeout = null, typingInterval = null;
 
     robotSpeakFn = (text) => {
-        speechText = text;
-        speechShown = '';
-        speechIdx = 0;
         speechEl.classList.add('show');
+        let idx = 0; speechEl.textContent = '';
         if (typingInterval) clearInterval(typingInterval);
         typingInterval = setInterval(() => {
-            speechIdx++;
-            speechShown = speechText.slice(0, speechIdx);
-            speechEl.textContent = speechShown;
-            if (speechIdx >= speechText.length) {
-                clearInterval(typingInterval);
-                typingInterval = null;
-            }
+            idx++; speechEl.textContent = text.slice(0, idx);
+            if (idx >= text.length) { clearInterval(typingInterval); typingInterval = null; }
         }, 20);
         if (speechTimeout) clearTimeout(speechTimeout);
-        const dur = Math.max(3000, text.length * 55 + 1800);
-        speechTimeout = setTimeout(() => {
-            speechEl.classList.remove('show');
-        }, dur);
-        state = 'talking';
-        setTimeout(() => { state = 'idle'; }, 1500);
+        speechTimeout = setTimeout(() => speechEl.classList.remove('show'), Math.max(3000, text.length * 55 + 1800));
+        state = 'talking'; setTimeout(() => { state = 'idle'; }, 1500);
     };
 
-    // 鼠标跟踪
     window.addEventListener('mousemove', (e) => {
         const rect = canvas.getBoundingClientRect();
         targetMX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
         targetMY = ((e.clientY - rect.top) / rect.height) * 2 - 1;
-        const dx = (e.clientX - rect.left) / rect.width - 0.5;
-        const dy = (e.clientY - rect.top) / rect.height - 0.4;
-        proximity = Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy) * 2.2);
     });
 
-    // 点击提示（教学）
     const hints = [
         'Hi! I am the guide of Junwu\'s site. Click me for hints.',
         'Try typing "help" in the terminal on the left.',
@@ -808,201 +781,193 @@ function initRobot() {
         'Tip: the nav bar above also jumps between pages.'
     ];
     let hintIdx = 0;
-    pane.addEventListener('click', () => {
-        robotSpeak(hints[hintIdx % hints.length]);
-        hintIdx++;
-    });
+    pane.addEventListener('click', () => { robotSpeak(hints[hintIdx % hints.length]); hintIdx++; });
+    setTimeout(() => { if (hintIdx === 0) robotSpeak(hints[0]); }, 2500);
 
-    // 空闲几秒后主动打招呼
-    setTimeout(() => {
-        if (hintIdx === 0) robotSpeak(hints[0]);
-    }, 2500);
+    // 自动定时提示
+    function scheduleHint() {
+        const delay = 8000 + Math.random() * 10000;
+        setTimeout(() => {
+            robotSpeak(hints[hintIdx % hints.length]);
+            hintIdx++;
+            scheduleHint();
+        }, delay);
+    }
+    setTimeout(scheduleHint, 6000);
+
+    function roundRect(c, x, y, w, h, r) {
+        c.beginPath();
+        c.moveTo(x + r, y); c.lineTo(x + w - r, y);
+        c.arcTo(x + w, y, x + w, y + r, r); c.lineTo(x + w, y + h - r);
+        c.arcTo(x + w, y + h, x + w - r, y + h, r); c.lineTo(x + r, y + h);
+        c.arcTo(x, y + h, x, y + h - r, r); c.lineTo(x, y + r);
+        c.arcTo(x, y, x + r, y, r); c.closePath();
+    }
 
     function render() {
         frame++;
-        // 平滑插值
-        smoothMX += (targetMX - smoothMX) * 0.08;
-        smoothMY += (targetMY - smoothMY) * 0.08;
+        smoothMX += (targetMX - smoothMX) * 0.06;
+        smoothMY += (targetMY - smoothMY) * 0.06;
         const mx = smoothMX, my = smoothMY;
 
-        // 白底
-        o.fillStyle = 'rgb(255,255,255)';
+        o.fillStyle = '#fff';
         o.fillRect(0, 0, W, H);
 
-        // 视差偏移
-        const nX = mx * 10,  nY = my * 5;
-        const aX = mx * 22,  aY = my * 10;
-        const hX = mx * 38,  hY = my * 22;
-        const vX = mx * 30,  vY = my * 18;
-        const oX = mx * 14,  oY = my * 10;
-
-        // 机器人居中偏上
         const cx = W / 2;
-        const bodyTop = H * 0.66;
 
-        // ---- 身体铠甲 ----
+        const hX = mx * 12, hY = my * 6;
+        const oX = mx * 6,  oY = my * 4;
+
+        // Body armor (lower canvas, from mid to bottom)
+        const bodyTop = 480;
         const armorGrad = o.createLinearGradient(cx - 260, bodyTop, cx + 260, H);
-        armorGrad.addColorStop(0, 'rgb(255,255,255)');
-        armorGrad.addColorStop(0.35, 'rgb(140,150,160)');
-        armorGrad.addColorStop(0.85, 'rgb(20,25,30)');
-        armorGrad.addColorStop(1, 'rgb(55,60,70)');
+        armorGrad.addColorStop(0, 'rgb(250,250,250)');
+        armorGrad.addColorStop(0.3, 'rgb(170,175,180)');
+        armorGrad.addColorStop(0.8, 'rgb(30,35,40)');
+        armorGrad.addColorStop(1, 'rgb(60,65,70)');
         o.fillStyle = armorGrad;
         o.beginPath();
-        o.moveTo(cx - 280 - aX, H);
-        o.quadraticCurveTo(cx - 160 + aX * 0.4, bodyTop - 20 + aY, cx + aX, bodyTop - 10 + aY);
-        o.quadraticCurveTo(cx + 160 + aX * 0.4, bodyTop - 20 + aY, cx + 280 - aX, H);
+        o.moveTo(80, H); o.quadraticCurveTo(cx, bodyTop - 20, W - 80, H);
         o.fill();
 
-        // 胸部面板
-        o.fillStyle = 'rgb(25,28,32)';
-        o.beginPath();
-        o.moveTo(cx - 90 + aX, H);
-        o.lineTo(cx - 70 + aX, bodyTop + 30 + aY);
-        o.lineTo(cx + 70 + aX, bodyTop + 30 + aY);
-        o.lineTo(cx + 90 + aX, H);
+        // Chest dark panel
+        o.fillStyle = 'rgb(20,22,28)';
+        roundRect(o, cx - 70, bodyTop + 20, 140, H - bodyTop - 20, 8);
         o.fill();
 
-        // ---- 机械颈 ----
-        const neckGrad = o.createLinearGradient(cx - 75 + nX, 0, cx + 75 + nX, 0);
-        neckGrad.addColorStop(0, 'rgb(10,10,10)');
-        neckGrad.addColorStop(0.3, 'rgb(60,65,70)');
-        neckGrad.addColorStop(0.7, 'rgb(120,125,130)');
-        neckGrad.addColorStop(1, 'rgb(10,10,10)');
+        // Chest rivet
+        o.fillStyle = 'rgb(120,125,130)';
+        o.beginPath(); o.arc(cx, bodyTop + 50, 8, 0, Math.PI * 2); o.fill();
+        o.fillStyle = 'rgb(80,85,90)';
+        o.beginPath(); o.arc(cx, bodyTop + 50, 4, 0, Math.PI * 2); o.fill();
+
+        // Mechanical neck
+        const neckGrad = o.createLinearGradient(cx - 55, 0, cx + 55, 0);
+        neckGrad.addColorStop(0, 'rgb(15,15,15)');
+        neckGrad.addColorStop(0.35, 'rgb(80,85,90)');
+        neckGrad.addColorStop(0.65, 'rgb(130,135,140)');
+        neckGrad.addColorStop(1, 'rgb(15,15,15)');
         o.fillStyle = neckGrad;
-        o.fillRect(cx - 75 + nX, bodyTop - 100 + nY, 150, 120);
+        o.fillRect(cx - 55, bodyTop - 55, 110, 75);
 
-        // 颈部活塞
-        const pistonGrad = o.createLinearGradient(cx - 100 + nX, 0, cx - 78 + nX, 0);
-        pistonGrad.addColorStop(0, 'rgb(25,25,25)');
-        pistonGrad.addColorStop(0.5, 'rgb(210,210,210)');
-        pistonGrad.addColorStop(1, 'rgb(15,15,15)');
-        o.fillStyle = pistonGrad;
-        o.fillRect(cx - 100 + nX, bodyTop - 80 + nY, 22, 100);
-        o.fillRect(cx + 78 + nX, bodyTop - 80 + nY, 22, 100);
+        // Neck slots
+        o.fillStyle = 'rgba(0,0,0,0.7)';
+        for (let i = 0; i < 4; i++) o.fillRect(cx - 55, bodyTop - 48 + i * 16, 110, 6);
 
-        // 颈部卡槽
-        o.fillStyle = 'rgba(0,0,0,0.75)';
-        for (let i = 0; i < 7; i++) {
-            o.fillRect(cx - 75 + nX, bodyTop - 90 + nY + i * 15, 150, 6);
-        }
+        // Square head
+        const headW = 320, headH = 330, headR = 32;
+        const headX = cx - headW / 2 + hX;
+        const headY = bodyTop - 55 - headH + hY;
 
-        // ---- 头罩 ----
-        const headCX = cx + hX;
-        const headCY = H * 0.32 + hY;
-        const headW = 190, headH = 220;
-
-        const headGrad = o.createRadialGradient(headCX - 60, headCY - 70, 20, headCX, headCY, 280);
-        headGrad.addColorStop(0, 'rgb(255,255,255)');
-        headGrad.addColorStop(0.25, 'rgb(200,210,220)');
-        headGrad.addColorStop(0.6, 'rgb(80,90,100)');
-        headGrad.addColorStop(0.95, 'rgb(20,22,28)');
-        headGrad.addColorStop(1, 'rgb(45,50,55)');
+        // Head metal gradient
+        const headGrad = o.createRadialGradient(headX + headW * 0.35, headY + headH * 0.3, 30, cx + hX, headY + headH / 2, headW);
+        headGrad.addColorStop(0, 'rgb(250,250,250)');
+        headGrad.addColorStop(0.25, 'rgb(210,215,220)');
+        headGrad.addColorStop(0.6, 'rgb(110,115,120)');
+        headGrad.addColorStop(0.95, 'rgb(25,28,32)');
+        headGrad.addColorStop(1, 'rgb(50,55,60)');
         o.fillStyle = headGrad;
-        o.beginPath();
-        o.moveTo(headCX, headCY - headH / 2);
-        o.bezierCurveTo(headCX + headW, headCY - headH / 2, headCX + headW + 10, headCY + headH / 2, headCX + headW * 0.65, headCY + headH / 2);
-        o.quadraticCurveTo(headCX, headCY + headH / 2 + 20, headCX - headW * 0.65, headCY + headH / 2);
-        o.bezierCurveTo(headCX - headW - 10, headCY + headH / 2, headCX - headW, headCY - headH / 2, headCX, headCY - headH / 2);
+        roundRect(o, headX, headY, headW, headH, headR);
         o.fill();
 
-        // 耳关节
-        const earX = mx * 34;
-        const earY = my * 18;
-        o.fillStyle = 'rgb(30,30,30)';
-        o.beginPath(); o.arc(headCX - headW * 0.95 + earX, headCY + earY, 22, 0, Math.PI * 2); o.fill();
-        o.beginPath(); o.arc(headCX + headW * 0.95 + earX, headCY + earY, 22, 0, Math.PI * 2); o.fill();
-        o.fillStyle = 'rgb(150,155,160)';
-        o.beginPath(); o.arc(headCX - headW * 0.95 + earX, headCY + earY, 9, 0, Math.PI * 2); o.fill();
-        o.beginPath(); o.arc(headCX + headW * 0.95 + earX, headCY + earY, 9, 0, Math.PI * 2); o.fill();
+        // Head edge
+        o.strokeStyle = 'rgb(10,10,10)';
+        o.lineWidth = 3;
+        roundRect(o, headX, headY, headW, headH, headR);
+        o.stroke();
 
-        // ---- 面罩框 ----
-        const visorGrad = o.createLinearGradient(0, headCY - 70 + vY, 0, headCY + 70 + vY);
-        visorGrad.addColorStop(0, 'rgb(60,65,70)');
-        visorGrad.addColorStop(1, 'rgb(10,10,10)');
+        // Ear blocks
+        [-1, 1].forEach(side => {
+            const earW = 30, earH = 70, earR = 8;
+            const earX = side === -1 ? headX - earW + 4 : headX + headW - 4;
+            const earY = headY + headH / 2 - earH / 2;
+            const earGrad = o.createLinearGradient(earX, earY, earX + earW, earY + earH);
+            earGrad.addColorStop(0, 'rgb(180,185,190)');
+            earGrad.addColorStop(1, 'rgb(20,22,25)');
+            o.fillStyle = earGrad;
+            roundRect(o, earX, earY, earW, earH, earR);
+            o.fill();
+            o.strokeStyle = 'rgb(10,10,10)';
+            o.lineWidth = 2;
+            roundRect(o, earX, earY, earW, earH, earR);
+            o.stroke();
+        });
+
+        // Visor (square dark area)
+        const visorPad = 32;
+        const visorX = headX + visorPad + oX * 0.5;
+        const visorY = headY + visorPad + oY * 0.5;
+        const visorW = headW - visorPad * 2;
+        const visorH = headH - visorPad * 2;
+        const visorGrad = o.createLinearGradient(visorX, visorY, visorX, visorY + visorH);
+        visorGrad.addColorStop(0, 'rgb(40,42,48)');
+        visorGrad.addColorStop(0.5, 'rgb(5,5,8)');
+        visorGrad.addColorStop(1, 'rgb(20,22,28)');
         o.fillStyle = visorGrad;
-        o.beginPath();
-        o.moveTo(headCX + vX, headCY - 70 + vY);
-        o.quadraticCurveTo(headCX + 140 + vX, headCY - 40 + vY, headCX + 130 + vX, headCY + 80 + vY);
-        o.quadraticCurveTo(headCX + vX, headCY + 120 + vY, headCX - 130 + vX, headCY + 80 + vY);
-        o.quadraticCurveTo(headCX - 140 + vX, headCY - 40 + vY, headCX + vX, headCY - 70 + vY);
+        roundRect(o, visorX, visorY, visorW, visorH, 18);
         o.fill();
 
-        // ---- 玻璃 ----
-        o.fillStyle = 'rgb(0,0,0)';
-        o.beginPath();
-        o.moveTo(headCX + vX, headCY - 55 + vY);
-        o.quadraticCurveTo(headCX + 118 + vX, headCY - 28 + vY, headCX + 108 + vX, headCY + 65 + vY);
-        o.quadraticCurveTo(headCX + vX, headCY + 100 + vY, headCX - 108 + vX, headCY + 65 + vY);
-        o.quadraticCurveTo(headCX - 118 + vX, headCY - 28 + vY, headCX + vX, headCY - 55 + vY);
-        o.fill();
-
-        // ---- 眼睛 ----
-        const eyeY = headCY + 10 + oY;
-        const eyeSpacing = 88;
-        const leftEyeX  = headCX + oX - eyeSpacing / 2;
-        const rightEyeX = headCX + oX + eyeSpacing / 2;
-        const eyes = [leftEyeX, rightEyeX];
-
-        // 眨眼
+        // Eyes
         blinkTimer++;
-        const isBlink = (blinkTimer % 280) > 270;
+        const isBlink = (blinkTimer % 260) > 252;
+        const eyeSpacing = 100;
+        const eyeCY = headY + headH * 0.46 + oY;
+        const eyeR = 38;
 
-        eyes.forEach(ex => {
-            // 外壳
+        [-1, 1].forEach(side => {
+            const ex = cx + hX + side * eyeSpacing / 2 + oX;
+            const ey = eyeCY;
+
+            // Outer casing
             o.fillStyle = 'rgb(0,0,0)';
-            o.beginPath(); o.arc(ex, eyeY, 40, 0, Math.PI * 2); o.fill();
-            const casing = o.createLinearGradient(ex - 34, eyeY - 34, ex + 34, eyeY + 34);
+            o.beginPath(); o.arc(ex, ey, eyeR + 6, 0, Math.PI * 2); o.fill();
+            const casing = o.createLinearGradient(ex - eyeR, ey - eyeR, ex + eyeR, ey + eyeR);
             casing.addColorStop(0, 'rgb(200,200,200)');
-            casing.addColorStop(0.5, 'rgb(30,30,30)');
-            casing.addColorStop(1, 'rgb(110,110,110)');
+            casing.addColorStop(0.5, 'rgb(40,40,40)');
+            casing.addColorStop(1, 'rgb(120,120,120)');
             o.fillStyle = casing;
-            o.beginPath(); o.arc(ex, eyeY, 34, 0, Math.PI * 2); o.fill();
-            // 镜片
-            const lens = o.createRadialGradient(ex - 10, eyeY - 10, 2, ex, eyeY, 30);
-            lens.addColorStop(0, 'rgb(60,60,65)');
+            o.beginPath(); o.arc(ex, ey, eyeR, 0, Math.PI * 2); o.fill();
+
+            // Lens
+            const lens = o.createRadialGradient(ex - 8, ey - 8, 2, ex, ey, eyeR - 4);
+            lens.addColorStop(0, 'rgb(50,50,55)');
             lens.addColorStop(0.5, 'rgb(8,8,10)');
             lens.addColorStop(1, 'rgb(0,0,0)');
             o.fillStyle = lens;
-            o.beginPath(); o.arc(ex, eyeY, 28, 0, Math.PI * 2); o.fill();
+            o.beginPath(); o.arc(ex, ey, eyeR - 6, 0, Math.PI * 2); o.fill();
 
             if (isBlink) {
-                o.fillStyle = 'rgb(20,20,20)';
-                o.fillRect(ex - 28, eyeY - 2, 56, 4);
+                o.fillStyle = 'rgb(180,180,180)';
+                o.fillRect(ex - eyeR + 8, ey - 2, (eyeR - 8) * 2, 4);
             } else {
-                // 发光环：状态决定强度
-                const base = state === 'talking' ? 0.95 : (0.45 + proximity * 0.45);
-                const ringSize = state === 'talking'
-                    ? 13 + Math.sin(frame * 0.2) * 4
-                    : 14 + proximity * 6;
-                o.strokeStyle = `rgba(0,0,0,${base})`;
-                o.lineWidth = 3 + proximity * 2;
-                o.beginPath(); o.arc(ex, eyeY, ringSize, 0, Math.PI * 2); o.stroke();
-                // 核心
-                o.fillStyle = `rgba(255,255,255,${base})`;
-                o.beginPath(); o.arc(ex, eyeY, 5 + proximity * 3, 0, Math.PI * 2); o.fill();
-                // 高光
-                o.fillStyle = 'rgba(255,255,255,0.35)';
-                o.beginPath(); o.arc(ex - 8, eyeY - 8, 8, 0, Math.PI * 2); o.fill();
+                // Glow ring
+                const alpha = state === 'talking' ? 0.95 : 0.5;
+                const ringR = state === 'talking' ? 14 + Math.sin(frame * 0.2) * 3 : 16;
+                o.strokeStyle = `rgba(255,255,255,${alpha})`;
+                o.lineWidth = 3;
+                o.beginPath(); o.arc(ex, ey, ringR, 0, Math.PI * 2); o.stroke();
+                // Core light
+                o.fillStyle = `rgba(255,255,255,${alpha})`;
+                o.beginPath(); o.arc(ex, ey, 6, 0, Math.PI * 2); o.fill();
+                // Highlight
+                o.fillStyle = 'rgba(255,255,255,0.25)';
+                o.beginPath(); o.arc(ex - 10, ey - 10, 8, 0, Math.PI * 2); o.fill();
             }
         });
 
-        // 鼻部雷达
-        o.fillStyle = 'rgb(10,10,10)';
-        o.beginPath(); o.arc(headCX + oX, eyeY + 48, 10, 0, Math.PI * 2); o.fill();
-        o.fillStyle = 'rgb(180,180,180)';
-        o.beginPath(); o.arc(headCX + oX - 2, eyeY + 46, 3, 0, Math.PI * 2); o.fill();
-
-        // 天线
-        o.strokeStyle = 'rgb(20,20,20)';
+        // Antenna
+        const antX = cx + hX + mx * 3;
+        const antBaseY = headY;
+        const antTipY = headY - 50;
+        o.strokeStyle = 'rgb(30,30,30)';
         o.lineWidth = 4;
-        o.beginPath();
-        o.moveTo(headCX + hX, headCY - headH / 2);
-        o.lineTo(headCX + hX + mx * 8, headCY - headH / 2 - 40);
-        o.stroke();
-        o.fillStyle = state === 'talking' ? 'rgb(0,0,0)' : 'rgb(80,80,80)';
-        o.beginPath(); o.arc(headCX + hX + mx * 8, headCY - headH / 2 - 45, 6, 0, Math.PI * 2); o.fill();
+        o.beginPath(); o.moveTo(antX, antBaseY); o.lineTo(antX + mx * 4, antTipY); o.stroke();
+        o.fillStyle = state === 'talking' ? 'rgb(255,255,255)' : 'rgb(100,100,100)';
+        o.beginPath(); o.arc(antX + mx * 4, antTipY - 4, 7, 0, Math.PI * 2); o.fill();
+        o.strokeStyle = 'rgb(20,20,20)'; o.lineWidth = 2;
+        o.beginPath(); o.arc(antX + mx * 4, antTipY - 4, 7, 0, Math.PI * 2); o.stroke();
 
-        // ---- Bayer Dithering（黑点打在白底） ----
+        // Bayer Dithering (black dots on white)
         const img = o.getImageData(0, 0, W, H);
         const d = img.data;
         for (let y = 0; y < H; y++) {
@@ -1010,36 +975,21 @@ function initRobot() {
                 const idx = (y * W + x) * 4;
                 const luma = d[idx] * 0.299 + d[idx + 1] * 0.587 + d[idx + 2] * 0.114;
                 const threshold = (bayer[y & 7][x & 7] / 64) * 255;
-                // 白底 + 黑像素：luma 低于阈值 → 画黑点
                 const isDark = luma < threshold;
-                d[idx] = 255; d[idx + 1] = 255; d[idx + 2] = 255;
-                d[idx + 3] = 0; // 默认透明 = 白色画布显示
-                if (isDark) {
-                    d[idx] = 0; d[idx + 1] = 0; d[idx + 2] = 0;
-                    d[idx + 3] = 255;
-                }
+                d[idx] = 255; d[idx + 1] = 255; d[idx + 2] = 255; d[idx + 3] = 0;
+                if (isDark) { d[idx] = 0; d[idx + 1] = 0; d[idx + 2] = 0; d[idx + 3] = 255; }
             }
         }
         o.putImageData(img, 0, 0);
 
-        // ---- 输出到主画布 ----
-        ctx.fillStyle = '#ffffff';
+        // Output
+        ctx.fillStyle = '#fff';
         ctx.fillRect(0, 0, W, H);
         ctx.imageSmoothingEnabled = false;
         ctx.drawImage(off, 0, 0, W, H);
 
-        // 扫描线（很淡）
-        if (proximity > 0.25) {
-            const scanY = (frame * 2) % H;
-            ctx.fillStyle = `rgba(0,0,0,${(proximity - 0.25) * 0.25})`;
-            ctx.fillRect(0, scanY, W, 2);
-        }
-
-        // 状态文字
         if (statusEl) {
-            statusEl.textContent = state === 'talking'
-                ? '[ UNIT_STATUS: TALKING ]'
-                : '[ UNIT_STATUS: IDLE ]';
+            statusEl.textContent = state === 'talking' ? '[ UNIT_STATUS: TALKING ]' : '[ UNIT_STATUS: IDLE ]';
         }
 
         requestAnimationFrame(render);

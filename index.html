@@ -53,11 +53,35 @@
                 </form>
             </div>
 
-            <!-- 右侧：方形像素机器人 -->
-            <div class="robot-pane" id="robot-pane">
-                <canvas id="robot-canvas" width="720" height="720"></canvas>
-                <div class="robot-status" id="robot-status">[ UNIT_STATUS: IDLE ]</div>
-                <div class="robot-speech" id="robot-speech"></div>
+            <!-- 右侧：机器人 + 信息卡 -->
+            <div class="right-col">
+                <div class="robot-pane" id="robot-pane">
+                    <canvas id="robot-canvas" width="720" height="720"></canvas>
+                    <div class="robot-status" id="robot-status">[ UNIT_STATUS: IDLE ]</div>
+                    <div class="robot-speech" id="robot-speech"></div>
+                </div>
+                <div class="info-row">
+                    <div class="info-card">
+                        <h4>Current Status</h4>
+                        <p class="info-label">School</p>
+                        <p class="info-value">Tongji University</p>
+                        <p class="info-detail">College of Electronic &amp; Information Engineering</p>
+                        <p class="info-label" style="margin-top:0.6rem;">Lab</p>
+                        <p class="info-value">MIAS Group</p>
+                        <p class="info-detail">Supervisor: Prof. Rui Fan</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Research Interests</h4>
+                        <ul class="interest-list">
+                            <li>Computer Vision</li>
+                            <li>Robot Perception</li>
+                            <li>Deep Learning</li>
+                            <li>Machine Intelligence</li>
+                            <li>Stereo Matching</li>
+                            <li>3D Scene Understanding</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

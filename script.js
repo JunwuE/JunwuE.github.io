@@ -27,19 +27,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // 平滑滚动到指定部分
+    // 平滑滚动 —— 只处理页内锚点；真实的 .html 链接走默认跳转
     navLinks.forEach(link => {
         link.addEventListener('click', function (e) {
+            const href = this.getAttribute('href') || '';
+            if (!href.startsWith('#')) return; // 外部页面：让浏览器正常跳转
             e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-
+            const targetSection = document.querySelector(href);
             if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 70; // 考虑固定导航栏高度
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
+                const offsetTop = targetSection.offsetTop - 70;
+                window.scrollTo({ top: offsetTop, behavior: 'smooth' });
             }
         });
     });
@@ -483,6 +480,569 @@ document.addEventListener('DOMContentLoaded', function () {
 
     window.addEventListener('scroll', updateOnScroll);
 
+    // 初始化首页终端与方形机器人
+    initTerminal();
+    initRobot();
+
     console.log('🎉 个人网站已成功加载！');
     console.log('💡 提示：您可以在浏览器开发者工具中查看和修改网站代码');
 });
+
+/* =========================================================
+   首页终端（Terminal）
+   ========================================================= */
+function initTerminal() {
+    const body = document.getElementById('terminal-body');
+    const form = document.getElementById('terminal-form');
+    const input = document.getElementById('terminal-input');
+    const pane = document.getElementById('terminal-pane');
+    if (!body || !form || !input) return;
+
+    const HEADER_ASCII = `     ██╗██╗   ██╗███╗   ██╗██╗    ██╗██╗   ██╗    ███████╗
+     ██║██║   ██║████╗  ██║██║    ██║██║   ██║    ██╔════╝
+     ██║██║   ██║██╔██╗ ██║██║ █╗ ██║██║   ██║    █████╗
+██   ██║██║   ██║██║╚██╗██║██║███╗██║██║   ██║    ██╔══╝
+╚█████╔╝╚██████╔╝██║ ╚████║╚███╔███╔╝╚██████╔╝    ███████╗
+ ╚════╝  ╚═════╝ ╚═╝  ╚═══╝ ╚══╝╚══╝  ╚═════╝     ╚══════╝`;
+
+    const history = [];
+
+    function append(type, text) {
+        const div = document.createElement('div');
+        div.className = 'terminal-line ' + type;
+        div.textContent = text;
+        body.appendChild(div);
+        body.scrollTop = body.scrollHeight;
+    }
+
+    function appendHTML(type, html) {
+        const div = document.createElement('div');
+        div.className = 'terminal-line ' + type;
+        div.innerHTML = html;
+        body.appendChild(div);
+        body.scrollTop = body.scrollHeight;
+    }
+
+    // 初始输出
+    append('ascii', HEADER_ASCII);
+    append('system', 'SYSTEM INITIALIZED. Welcome to Junwu E\'s personal terminal.');
+    append('intro', 'Junwu E — B.E. in Automation, Tongji University');
+    append('intro', 'Computer Vision · Robot Perception · Deep Learning');
+    append('system', 'Type "help" to see available commands. The bot on the right can also give hints.');
+
+    const commands = {
+        help: () => {
+            append('output',
+`AVAILABLE COMMANDS:
+
+  IDENTITY
+  about / whoami   - Who is Junwu E?
+  education        - Academic background
+  skills           - Technical stack
+  awards           - Honors & scholarships
+
+  WORK
+  publications     - Published / submitted papers
+  projects         - Selected projects
+
+  CONTACT
+  contact          - How to reach me
+  links            - External profiles
+
+  NAV
+  goto <page>      - Open home / profile / publications / projects / contact
+  clear            - Clear the terminal`);
+        },
+
+        about: () => {
+            append('output',
+`ABOUT ME:
+  Name     : Junwu E
+  School   : Tongji University (College of EIE)
+  Major    : B.E. in Automation
+  GPA      : 90.53 / 100   (WES verified 3.92 / 4.0)
+  Focus    : Computer Vision, Robot Perception,
+             Deep Learning, Machine Intelligence`);
+            robotSpeak('Hi! I am Junwu\'s assistant. Try "publications" or "projects".');
+        },
+        whoami: () => commands.about(),
+        profile: () => commands.about(),
+
+        education: () => {
+            append('output',
+`EDUCATION:
+  > Tongji University, Shanghai, China
+    B.E. in Automation | 2021.09 - Present
+    GPA: 90.53/100  |  WES Verified GPA: 3.92/4.0
+
+  A+ Courses:
+    Artificial Intelligence Basics, Machine Learning,
+    Deep Learning, Image Processing, Embedded Systems,
+    Linear Algebra, Probability Theory, Control System ...`);
+        },
+
+        skills: () => {
+            append('output',
+`TECHNICAL SKILLS:
+  > Python       [###########-] 95%
+  > C / C++      [##########--] 85%
+  > PyTorch      [##########--] 85%
+  > OpenCV       [##########--] 85%
+  > CUDA C       [########----] 70%
+  > CARLA Sim    [########----] 70%
+  > Linux / Git  [##########--] 85%`);
+        },
+
+        awards: () => {
+            append('output',
+`AWARDS & HONORS:
+  > First-Class Scholarship   (Top 10%)  Tongji, 2023
+  > Second-Class Scholarship  (Top 30%)  Tongji, 2022
+  > Outstanding Student Cadre             Tongji, 2022
+  > Second Prize, East China Embedded Systems Comp., 2025`);
+        },
+
+        publications: () => {
+            append('output',
+`PUBLICATIONS:
+
+  [1] Transformer and Trainable Bilateral Filter
+      for Unsupervised Stereo Matching
+      Junwu E, Ming-Ju Lee, Qinluo Deng, et al.
+      IEEE RCAR 2025
+
+  [2] Robust & Real-time Road Crack Detection
+      via Collaborative Dual-Branch Learning
+      Zhengfei Song, ..., Junwu E, ..., Rui Fan
+      IEEE RCAR 2025
+
+  [3] CarlaOcc: An Instance-Centric Panoptic
+      Occupancy Benchmark
+      Yi Feng*, Junwu E*, Zizhan Guo, Yu Ma, Hanli Wang, Rui Fan
+      Accepted to CVPR 2026   (final score: 455)
+
+  [4] KITTI-360-PO: A Panoptic Occupancy Benchmark
+      for Geometrically Complete Scene Understanding
+      Junwu E, Yi Feng, Xijing Zhang, Wei Ye, Rui Fan
+      (Under Review)`);
+        },
+
+        projects: () => {
+            append('output',
+`SELECTED PROJECTS:
+
+  [01] Embedded Handwritten Digit Recognition
+       Real-time ML on resource-constrained MCU
+       github.com/JunwuE/gesture_pcb
+
+  [02] Camera Calibration & Stereo Matching
+       OpenCV / Python / Computer Vision
+       github.com/JunwuE/IPMV
+
+  [03] Autonomous Water-Surface Robot
+       Garbage detection & autonomous navigation
+       github.com/JunwuE/water_robot`);
+        },
+
+        contact: () => {
+            append('output',
+`CONTACT:
+  Email    : 2152482@tongji.edu.cn
+  Phone    : +86 18801615808
+  GitHub   : github.com/JunwuE
+  Location : Tongji University, Shanghai, China`);
+        },
+
+        links: () => {
+            append('output',
+`EXTERNAL LINKS:
+  [GitHub]  github.com/JunwuE
+  [Email ]  mailto:2152482@tongji.edu.cn
+  [TBSMNet] github.com/JunwuE/TBSMnet`);
+        },
+
+        clear: () => {
+            body.innerHTML = '';
+        },
+
+        goto: (arg) => {
+            const target = (arg || '').toLowerCase();
+            const map = {
+                home: 'index.html',
+                profile: 'profile.html',
+                publications: 'publications.html',
+                projects: 'projects.html',
+                contact: 'contact.html',
+            };
+            if (!map[target]) {
+                append('error', 'Usage: goto <home|profile|publications|projects|contact>');
+                return;
+            }
+            append('accent', '> Navigating to ' + target + ' ...');
+            setTimeout(() => { window.location.href = map[target]; }, 450);
+        },
+    };
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const raw = input.value.trim();
+        if (!raw) return;
+
+        append('user', 'guest@junwu-e:~$ ' + raw);
+        history.push(raw);
+
+        const [cmd, ...rest] = raw.split(/\s+/);
+        const fn = commands[cmd.toLowerCase()];
+        if (fn) {
+            fn(rest.join(' '));
+        } else {
+            append('error', 'COMMAND NOT FOUND: ' + cmd + '   (type "help")');
+            robotSpeak('Unknown command. Try "help".');
+        }
+        input.value = '';
+    });
+
+    // 点击终端面板任意位置即聚焦输入框
+    pane.addEventListener('click', () => input.focus());
+    setTimeout(() => input.focus(), 300);
+}
+
+/* =========================================================
+   方形像素机器人（Canvas + Bayer Dithering，白底主题）
+   ========================================================= */
+let robotSpeakFn = null;
+function robotSpeak(text) {
+    if (robotSpeakFn) robotSpeakFn(text);
+}
+
+function initRobot() {
+    const canvas = document.getElementById('robot-canvas');
+    const statusEl = document.getElementById('robot-status');
+    const speechEl = document.getElementById('robot-speech');
+    const pane = document.getElementById('robot-pane');
+    if (!canvas || !pane) return;
+
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const W = canvas.width;   // 720
+    const H = canvas.height;  // 720 (square)
+
+    // Offscreen render target
+    const off = document.createElement('canvas');
+    off.width = W;
+    off.height = H;
+    const o = off.getContext('2d', { willReadFrequently: true });
+
+    // 8x8 Bayer matrix
+    const bayer = [
+        [ 0, 48, 12, 60,  3, 51, 15, 63],
+        [32, 16, 44, 28, 35, 19, 47, 31],
+        [ 8, 56,  4, 52, 11, 59,  7, 55],
+        [40, 24, 36, 20, 43, 27, 39, 23],
+        [ 2, 50, 14, 62,  1, 49, 13, 61],
+        [34, 18, 46, 30, 33, 17, 45, 29],
+        [10, 58,  6, 54,  9, 57,  5, 53],
+        [42, 26, 38, 22, 41, 25, 37, 21]
+    ];
+
+    let frame = 0;
+    let targetMX = 0, targetMY = 0;
+    let smoothMX = 0, smoothMY = 0;
+    let proximity = 0;
+    let state = 'idle'; // idle | talking | blink
+    let blinkTimer = 0;
+
+    // 讲话气泡
+    let speechText = '';
+    let speechShown = '';
+    let speechIdx = 0;
+    let speechTimeout = null;
+    let typingInterval = null;
+
+    robotSpeakFn = (text) => {
+        speechText = text;
+        speechShown = '';
+        speechIdx = 0;
+        speechEl.classList.add('show');
+        if (typingInterval) clearInterval(typingInterval);
+        typingInterval = setInterval(() => {
+            speechIdx++;
+            speechShown = speechText.slice(0, speechIdx);
+            speechEl.textContent = speechShown;
+            if (speechIdx >= speechText.length) {
+                clearInterval(typingInterval);
+                typingInterval = null;
+            }
+        }, 20);
+        if (speechTimeout) clearTimeout(speechTimeout);
+        const dur = Math.max(3000, text.length * 55 + 1800);
+        speechTimeout = setTimeout(() => {
+            speechEl.classList.remove('show');
+        }, dur);
+        state = 'talking';
+        setTimeout(() => { state = 'idle'; }, 1500);
+    };
+
+    // 鼠标跟踪
+    window.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        targetMX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        targetMY = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+        const dx = (e.clientX - rect.left) / rect.width - 0.5;
+        const dy = (e.clientY - rect.top) / rect.height - 0.4;
+        proximity = Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy) * 2.2);
+    });
+
+    // 点击提示（教学）
+    const hints = [
+        'Hi! I am the guide of Junwu\'s site. Click me for hints.',
+        'Try typing "help" in the terminal on the left.',
+        '"education" shows Junwu\'s academic background.',
+        '"publications" shows his papers (incl. CVPR 2026).',
+        '"projects" lists selected engineering + research projects.',
+        '"skills" draws a neat skill stack bar chart.',
+        '"awards" shows scholarships and honors.',
+        '"contact" prints email / phone / GitHub.',
+        'Use "goto profile" to open the Profile page.',
+        'Use "goto publications" or "goto projects" to jump pages.',
+        '"clear" wipes the terminal. "help" always works.',
+        'Tip: the nav bar above also jumps between pages.'
+    ];
+    let hintIdx = 0;
+    pane.addEventListener('click', () => {
+        robotSpeak(hints[hintIdx % hints.length]);
+        hintIdx++;
+    });
+
+    // 空闲几秒后主动打招呼
+    setTimeout(() => {
+        if (hintIdx === 0) robotSpeak(hints[0]);
+    }, 2500);
+
+    function render() {
+        frame++;
+        // 平滑插值
+        smoothMX += (targetMX - smoothMX) * 0.08;
+        smoothMY += (targetMY - smoothMY) * 0.08;
+        const mx = smoothMX, my = smoothMY;
+
+        // 白底
+        o.fillStyle = 'rgb(255,255,255)';
+        o.fillRect(0, 0, W, H);
+
+        // 视差偏移
+        const nX = mx * 10,  nY = my * 5;
+        const aX = mx * 22,  aY = my * 10;
+        const hX = mx * 38,  hY = my * 22;
+        const vX = mx * 30,  vY = my * 18;
+        const oX = mx * 14,  oY = my * 10;
+
+        // 机器人居中偏上
+        const cx = W / 2;
+        const bodyTop = H * 0.66;
+
+        // ---- 身体铠甲 ----
+        const armorGrad = o.createLinearGradient(cx - 260, bodyTop, cx + 260, H);
+        armorGrad.addColorStop(0, 'rgb(255,255,255)');
+        armorGrad.addColorStop(0.35, 'rgb(140,150,160)');
+        armorGrad.addColorStop(0.85, 'rgb(20,25,30)');
+        armorGrad.addColorStop(1, 'rgb(55,60,70)');
+        o.fillStyle = armorGrad;
+        o.beginPath();
+        o.moveTo(cx - 280 - aX, H);
+        o.quadraticCurveTo(cx - 160 + aX * 0.4, bodyTop - 20 + aY, cx + aX, bodyTop - 10 + aY);
+        o.quadraticCurveTo(cx + 160 + aX * 0.4, bodyTop - 20 + aY, cx + 280 - aX, H);
+        o.fill();
+
+        // 胸部面板
+        o.fillStyle = 'rgb(25,28,32)';
+        o.beginPath();
+        o.moveTo(cx - 90 + aX, H);
+        o.lineTo(cx - 70 + aX, bodyTop + 30 + aY);
+        o.lineTo(cx + 70 + aX, bodyTop + 30 + aY);
+        o.lineTo(cx + 90 + aX, H);
+        o.fill();
+
+        // ---- 机械颈 ----
+        const neckGrad = o.createLinearGradient(cx - 75 + nX, 0, cx + 75 + nX, 0);
+        neckGrad.addColorStop(0, 'rgb(10,10,10)');
+        neckGrad.addColorStop(0.3, 'rgb(60,65,70)');
+        neckGrad.addColorStop(0.7, 'rgb(120,125,130)');
+        neckGrad.addColorStop(1, 'rgb(10,10,10)');
+        o.fillStyle = neckGrad;
+        o.fillRect(cx - 75 + nX, bodyTop - 100 + nY, 150, 120);
+
+        // 颈部活塞
+        const pistonGrad = o.createLinearGradient(cx - 100 + nX, 0, cx - 78 + nX, 0);
+        pistonGrad.addColorStop(0, 'rgb(25,25,25)');
+        pistonGrad.addColorStop(0.5, 'rgb(210,210,210)');
+        pistonGrad.addColorStop(1, 'rgb(15,15,15)');
+        o.fillStyle = pistonGrad;
+        o.fillRect(cx - 100 + nX, bodyTop - 80 + nY, 22, 100);
+        o.fillRect(cx + 78 + nX, bodyTop - 80 + nY, 22, 100);
+
+        // 颈部卡槽
+        o.fillStyle = 'rgba(0,0,0,0.75)';
+        for (let i = 0; i < 7; i++) {
+            o.fillRect(cx - 75 + nX, bodyTop - 90 + nY + i * 15, 150, 6);
+        }
+
+        // ---- 头罩 ----
+        const headCX = cx + hX;
+        const headCY = H * 0.32 + hY;
+        const headW = 190, headH = 220;
+
+        const headGrad = o.createRadialGradient(headCX - 60, headCY - 70, 20, headCX, headCY, 280);
+        headGrad.addColorStop(0, 'rgb(255,255,255)');
+        headGrad.addColorStop(0.25, 'rgb(200,210,220)');
+        headGrad.addColorStop(0.6, 'rgb(80,90,100)');
+        headGrad.addColorStop(0.95, 'rgb(20,22,28)');
+        headGrad.addColorStop(1, 'rgb(45,50,55)');
+        o.fillStyle = headGrad;
+        o.beginPath();
+        o.moveTo(headCX, headCY - headH / 2);
+        o.bezierCurveTo(headCX + headW, headCY - headH / 2, headCX + headW + 10, headCY + headH / 2, headCX + headW * 0.65, headCY + headH / 2);
+        o.quadraticCurveTo(headCX, headCY + headH / 2 + 20, headCX - headW * 0.65, headCY + headH / 2);
+        o.bezierCurveTo(headCX - headW - 10, headCY + headH / 2, headCX - headW, headCY - headH / 2, headCX, headCY - headH / 2);
+        o.fill();
+
+        // 耳关节
+        const earX = mx * 34;
+        const earY = my * 18;
+        o.fillStyle = 'rgb(30,30,30)';
+        o.beginPath(); o.arc(headCX - headW * 0.95 + earX, headCY + earY, 22, 0, Math.PI * 2); o.fill();
+        o.beginPath(); o.arc(headCX + headW * 0.95 + earX, headCY + earY, 22, 0, Math.PI * 2); o.fill();
+        o.fillStyle = 'rgb(150,155,160)';
+        o.beginPath(); o.arc(headCX - headW * 0.95 + earX, headCY + earY, 9, 0, Math.PI * 2); o.fill();
+        o.beginPath(); o.arc(headCX + headW * 0.95 + earX, headCY + earY, 9, 0, Math.PI * 2); o.fill();
+
+        // ---- 面罩框 ----
+        const visorGrad = o.createLinearGradient(0, headCY - 70 + vY, 0, headCY + 70 + vY);
+        visorGrad.addColorStop(0, 'rgb(60,65,70)');
+        visorGrad.addColorStop(1, 'rgb(10,10,10)');
+        o.fillStyle = visorGrad;
+        o.beginPath();
+        o.moveTo(headCX + vX, headCY - 70 + vY);
+        o.quadraticCurveTo(headCX + 140 + vX, headCY - 40 + vY, headCX + 130 + vX, headCY + 80 + vY);
+        o.quadraticCurveTo(headCX + vX, headCY + 120 + vY, headCX - 130 + vX, headCY + 80 + vY);
+        o.quadraticCurveTo(headCX - 140 + vX, headCY - 40 + vY, headCX + vX, headCY - 70 + vY);
+        o.fill();
+
+        // ---- 玻璃 ----
+        o.fillStyle = 'rgb(0,0,0)';
+        o.beginPath();
+        o.moveTo(headCX + vX, headCY - 55 + vY);
+        o.quadraticCurveTo(headCX + 118 + vX, headCY - 28 + vY, headCX + 108 + vX, headCY + 65 + vY);
+        o.quadraticCurveTo(headCX + vX, headCY + 100 + vY, headCX - 108 + vX, headCY + 65 + vY);
+        o.quadraticCurveTo(headCX - 118 + vX, headCY - 28 + vY, headCX + vX, headCY - 55 + vY);
+        o.fill();
+
+        // ---- 眼睛 ----
+        const eyeY = headCY + 10 + oY;
+        const eyeSpacing = 88;
+        const leftEyeX  = headCX + oX - eyeSpacing / 2;
+        const rightEyeX = headCX + oX + eyeSpacing / 2;
+        const eyes = [leftEyeX, rightEyeX];
+
+        // 眨眼
+        blinkTimer++;
+        const isBlink = (blinkTimer % 280) > 270;
+
+        eyes.forEach(ex => {
+            // 外壳
+            o.fillStyle = 'rgb(0,0,0)';
+            o.beginPath(); o.arc(ex, eyeY, 40, 0, Math.PI * 2); o.fill();
+            const casing = o.createLinearGradient(ex - 34, eyeY - 34, ex + 34, eyeY + 34);
+            casing.addColorStop(0, 'rgb(200,200,200)');
+            casing.addColorStop(0.5, 'rgb(30,30,30)');
+            casing.addColorStop(1, 'rgb(110,110,110)');
+            o.fillStyle = casing;
+            o.beginPath(); o.arc(ex, eyeY, 34, 0, Math.PI * 2); o.fill();
+            // 镜片
+            const lens = o.createRadialGradient(ex - 10, eyeY - 10, 2, ex, eyeY, 30);
+            lens.addColorStop(0, 'rgb(60,60,65)');
+            lens.addColorStop(0.5, 'rgb(8,8,10)');
+            lens.addColorStop(1, 'rgb(0,0,0)');
+            o.fillStyle = lens;
+            o.beginPath(); o.arc(ex, eyeY, 28, 0, Math.PI * 2); o.fill();
+
+            if (isBlink) {
+                o.fillStyle = 'rgb(20,20,20)';
+                o.fillRect(ex - 28, eyeY - 2, 56, 4);
+            } else {
+                // 发光环：状态决定强度
+                const base = state === 'talking' ? 0.95 : (0.45 + proximity * 0.45);
+                const ringSize = state === 'talking'
+                    ? 13 + Math.sin(frame * 0.2) * 4
+                    : 14 + proximity * 6;
+                o.strokeStyle = `rgba(0,0,0,${base})`;
+                o.lineWidth = 3 + proximity * 2;
+                o.beginPath(); o.arc(ex, eyeY, ringSize, 0, Math.PI * 2); o.stroke();
+                // 核心
+                o.fillStyle = `rgba(255,255,255,${base})`;
+                o.beginPath(); o.arc(ex, eyeY, 5 + proximity * 3, 0, Math.PI * 2); o.fill();
+                // 高光
+                o.fillStyle = 'rgba(255,255,255,0.35)';
+                o.beginPath(); o.arc(ex - 8, eyeY - 8, 8, 0, Math.PI * 2); o.fill();
+            }
+        });
+
+        // 鼻部雷达
+        o.fillStyle = 'rgb(10,10,10)';
+        o.beginPath(); o.arc(headCX + oX, eyeY + 48, 10, 0, Math.PI * 2); o.fill();
+        o.fillStyle = 'rgb(180,180,180)';
+        o.beginPath(); o.arc(headCX + oX - 2, eyeY + 46, 3, 0, Math.PI * 2); o.fill();
+
+        // 天线
+        o.strokeStyle = 'rgb(20,20,20)';
+        o.lineWidth = 4;
+        o.beginPath();
+        o.moveTo(headCX + hX, headCY - headH / 2);
+        o.lineTo(headCX + hX + mx * 8, headCY - headH / 2 - 40);
+        o.stroke();
+        o.fillStyle = state === 'talking' ? 'rgb(0,0,0)' : 'rgb(80,80,80)';
+        o.beginPath(); o.arc(headCX + hX + mx * 8, headCY - headH / 2 - 45, 6, 0, Math.PI * 2); o.fill();
+
+        // ---- Bayer Dithering（黑点打在白底） ----
+        const img = o.getImageData(0, 0, W, H);
+        const d = img.data;
+        for (let y = 0; y < H; y++) {
+            for (let x = 0; x < W; x++) {
+                const idx = (y * W + x) * 4;
+                const luma = d[idx] * 0.299 + d[idx + 1] * 0.587 + d[idx + 2] * 0.114;
+                const threshold = (bayer[y & 7][x & 7] / 64) * 255;
+                // 白底 + 黑像素：luma 低于阈值 → 画黑点
+                const isDark = luma < threshold;
+                d[idx] = 255; d[idx + 1] = 255; d[idx + 2] = 255;
+                d[idx + 3] = 0; // 默认透明 = 白色画布显示
+                if (isDark) {
+                    d[idx] = 0; d[idx + 1] = 0; d[idx + 2] = 0;
+                    d[idx + 3] = 255;
+                }
+            }
+        }
+        o.putImageData(img, 0, 0);
+
+        // ---- 输出到主画布 ----
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, W, H);
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(off, 0, 0, W, H);
+
+        // 扫描线（很淡）
+        if (proximity > 0.25) {
+            const scanY = (frame * 2) % H;
+            ctx.fillStyle = `rgba(0,0,0,${(proximity - 0.25) * 0.25})`;
+            ctx.fillRect(0, scanY, W, 2);
+        }
+
+        // 状态文字
+        if (statusEl) {
+            statusEl.textContent = state === 'talking'
+                ? '[ UNIT_STATUS: TALKING ]'
+                : '[ UNIT_STATUS: IDLE ]';
+        }
+
+        requestAnimationFrame(render);
+    }
+    render();
+}

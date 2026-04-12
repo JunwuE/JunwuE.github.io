@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Junwu E - Publications</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">Junwu E</a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="profile.html" class="nav-link">Profile</a>
+                <a href="publications.html" class="nav-link active">Publications</a>
+                <a href="projects.html" class="nav-link">Projects</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 发表论文页 -->
+    <section id="publications" class="page-section">
+        <div class="container">
+            <h2 class="section-title">Publications</h2>
+            <div class="pub-list">
+
+                <!-- [1] CarlaOcc — CVPR 2026 -->
+                <div class="pub-item">
+                    <div class="pub-thumb">
+                        <img src="research_img/4.png" alt="CarlaOcc">
+                    </div>
+                    <div class="pub-info">
+                        <h3 class="pub-title">
+                            An Instance-Centric Panoptic Occupancy Benchmark (CarlaOcc)
+                        </h3>
+                        <p class="pub-authors">
+                            Yi Feng*, <span class="me">Junwu E</span>*, Zizhan Guo, Yu Ma, Hanli Wang, Rui Fan
+                        </p>
+                        <p class="pub-venue">
+                            IEEE/CVF Conference on Computer Vision and Pattern Recognition <strong>(CVPR)</strong>, 2026
+                            <span class="badge accepted">Accepted (PC Decision · Final Score 455)</span>
+                        </p>
+                        <p class="pub-desc">
+                            A large-scale instance-level panoptic occupancy benchmark built on the CARLA simulator,
+                            featuring multi-modal data collection, pedestrian mesh extraction and reconstruction.
+                        </p>
+                        <p class="pub-links">
+                            <a href="#">paper</a>
+                            <a href="#">project</a>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- [2] KITTI-360-PO -->
+                <div class="pub-item">
+                    <div class="pub-thumb">
+                        <img src="research_img/5.png" alt="KITTI-360-PO">
+                    </div>
+                    <div class="pub-info">
+                        <h3 class="pub-title">
+                            KITTI-360-PO: A Panoptic Occupancy Benchmark for Geometrically Complete Scene Understanding
+                        </h3>
+                        <p class="pub-authors">
+                            <span class="me">Junwu E</span>, Yi Feng, Xijing Zhang, Wei Ye, Rui Fan
+                        </p>
+                        <p class="pub-venue">
+                            <em>Under Review</em>
+                            <span class="badge review">Under Review</span>
+                        </p>
+                        <p class="pub-desc">
+                            A large-scale instance-level dataset built on KITTI-360 with a data processing pipeline for
+                            automatic instance extraction, instance segmentation and mesh reconstruction of dynamic
+                            objects — targeting geometrically complete outdoor scene understanding.
+                        </p>
+                        <p class="pub-links">
+                            <a href="#">paper</a>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- [3] TBSMNet — RCAR 2025 -->
+                <div class="pub-item">
+                    <div class="pub-thumb">
+                        <img src="research_img/3.png" alt="TBSMNet">
+                    </div>
+                    <div class="pub-info">
+                        <h3 class="pub-title">
+                            <a href="https://ieeexplore.ieee.org/abstract/document/11139708" target="_blank" rel="noopener">
+                                Transformer and Trainable Bilateral Filter for Unsupervised Stereo Matching
+                            </a>
+                        </h3>
+                        <p class="pub-authors">
+                            <span class="me">Junwu E</span>, Ming-Ju Lee, Qinluo Deng, Guanfeng Tang, Zhengfei Song,
+                            Yang Xu, Ye Zhang, Ilin Alexander, Rui Fan
+                        </p>
+                        <p class="pub-venue">
+                            IEEE International Conference on Real-time Computing and Robotics <strong>(RCAR)</strong>, 2025
+                        </p>
+                        <p class="pub-desc">
+                            TBSMNet, an unsupervised stereo matching network integrating a hybrid Transformer–CNN
+                            encoder with a trainable bilateral filter for adaptive noise suppression. Achieves
+                            significant accuracy improvements on SceneFlow and KITTI.
+                        </p>
+                        <p class="pub-links">
+                            <a href="https://ieeexplore.ieee.org/abstract/document/11139708" target="_blank" rel="noopener">IEEE</a>
+                            <a href="https://github.com/JunwuE/TBSMnet" target="_blank" rel="noopener">code</a>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- [4] Road Crack Detection — RCAR 2025 -->
+                <div class="pub-item">
+                    <div class="pub-thumb placeholder">
+                        <span>RCAR 2025<br>Road&nbsp;Crack<br>Detection</span>
+                    </div>
+                    <div class="pub-info">
+                        <h3 class="pub-title">
+                            <a href="https://ieeexplore.ieee.org/abstract/document/11139795" target="_blank" rel="noopener">
+                                Robust and Real-time Road Crack Detection through Collaborative Dual-Branch Learning
+                                on Robotic Sensing Platform
+                            </a>
+                        </h3>
+                        <p class="pub-authors">
+                            Zhengfei Song, Nachuan Ma, Zhuoyan Zhang, <span class="me">Junwu E</span>,
+                            MingJu Lee, Sergey Vityazev, Alexander Dvorkovich, Rui Fan
+                        </p>
+                        <p class="pub-venue">
+                            IEEE International Conference on Real-time Computing and Robotics <strong>(RCAR)</strong>, 2025
+                        </p>
+                        <p class="pub-desc">
+                            A collaborative dual-branch learning framework for robust and real-time road crack
+                            detection, validated on a robotic sensing platform.
+                        </p>
+                        <p class="pub-links">
+                            <a href="https://ieeexplore.ieee.org/abstract/document/11139795" target="_blank" rel="noopener">IEEE</a>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

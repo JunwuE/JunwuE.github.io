@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Junwu E - Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">Junwu E</a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="profile.html" class="nav-link active">Profile</a>
+                <a href="publications.html" class="nav-link">Publications</a>
+                <a href="projects.html" class="nav-link">Projects</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 个人资料页 -->
+    <section id="profile" class="page-section alt-bg">
+        <div class="container" style="max-width: 860px;">
+            <h2 class="section-title">Profile</h2>
+
+            <!-- 教育背景 -->
+            <h3 class="profile-heading">Education</h3>
+            <div class="education-item">
+                <h4>Tongji University, College of Electronic and Information Engineering</h4>
+                <p><strong>B.E. in Automation</strong> | 2021.09 - Present | Shanghai, China</p>
+                <p><strong>GPA: 90.53/100</strong> | <strong>WES Verified GPA: 3.92/4.0</strong></p>
+                <p>A+ Courses: Artificial Intelligence Basics, Machine Learning, Deep Learning,
+                    Image Processing, Embedded Systems, Linear Algebra, Probability Theory, Control System, etc.</p>
+            </div>
+
+            <!-- 研究方向 -->
+            <h3 class="profile-heading">Research Interests</h3>
+            <p style="color:#444; font-size:1.05rem; line-height:1.8; margin-bottom:2rem;">
+                Computer Vision, Robot Perception, Deep Learning, Machine Intelligence
+            </p>
+
+            <!-- 技术栈 -->
+            <h3 class="profile-heading">Technical Skills</h3>
+            <div class="skills-grid" style="margin-bottom:2.5rem;">
+                <a class="skill-item" href="https://www.python.org/" target="_blank" rel="noopener">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python" class="skill-icon">
+                    <span>Python</span>
+                </a>
+                <a class="skill-item" href="https://isocpp.org/" target="_blank" rel="noopener">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg" alt="C/C++" class="skill-icon">
+                    <span>C/C++</span>
+                </a>
+                <a class="skill-item" href="https://pytorch.org/" target="_blank" rel="noopener">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/10/PyTorch_logo_icon.svg" alt="PyTorch" class="skill-icon">
+                    <span>PyTorch</span>
+                </a>
+                <a class="skill-item" href="https://opencv.org/" target="_blank" rel="noopener">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/OpenCV_Logo_with_text.png" alt="OpenCV" class="skill-icon">
+                    <span>OpenCV</span>
+                </a>
+                <a class="skill-item" href="https://carla.org/" target="_blank" rel="noopener">
+                    <img src="img/carla.png" alt="CARLA" class="skill-icon">
+                    <span>CARLA</span>
+                </a>
+                <a class="skill-item" href="https://developer.nvidia.com/cuda-zone" target="_blank" rel="noopener">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Nvidia_CUDA_Logo.jpg" alt="CUDA C" class="skill-icon">
+                    <span>CUDA C</span>
+                </a>
+            </div>
+
+            <!-- 奖项荣誉 -->
+            <h3 class="profile-heading">Awards &amp; Honors</h3>
+            <ul class="awards-list">
+                <li><strong>First-Class Scholarship</strong> (Top 10%) - Tongji University, 2023</li>
+                <li><strong>Second-Class Scholarship</strong> (Top 30%) - Tongji University, 2022</li>
+                <li><strong>Outstanding Student Cadre</strong> - Tongji University, 2022</li>
+                <li><strong>Second Prize</strong> - East China Division Embedded Systems Competition, 2025</li>
+            </ul>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

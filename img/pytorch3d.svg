@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="pg" x1="0" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+  </defs>
+  <g stroke="url(#pg)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Upright rectangle (the "near plane") -->
+    <rect x="18" y="12" width="52" height="72" rx="4"/>
+    <!-- 4 lines from rectangle corners to frustum apex on the right -->
+    <!-- Top-left corner to right apex top -->
+    <line x1="70" y1="12" x2="102" y2="28"/>
+    <!-- Top-right to apex -->
+    <line x1="70" y1="84" x2="102" y2="68"/>
+    <!-- Bottom-left corner to right apex bottom -->
+    <line x1="18" y1="12" x2="102" y2="28"/>
+    <!-- Bottom-right to apex -->
+    <line x1="18" y1="84" x2="102" y2="68"/>
+    <!-- Right side closing line (far plane) -->
+    <line x1="102" y1="28" x2="102" y2="68"/>
+    <!-- Diagonal cross lines inside the rectangle -->
+    <line x1="18" y1="84" x2="70" y2="12"/>
+    <line x1="18" y1="12" x2="70" y2="84"/>
+  </g>
+</svg>

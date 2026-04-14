@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Anthropic/Claude logo: stylized sparkle/starburst -->
+  <circle cx="50" cy="50" r="45" fill="#D4A574"/>
+  <!-- Central starburst -->
+  <g fill="#fff">
+    <rect x="47" y="18" width="6" height="64" rx="3"/>
+    <rect x="47" y="18" width="6" height="64" rx="3" transform="rotate(60 50 50)"/>
+    <rect x="47" y="18" width="6" height="64" rx="3" transform="rotate(120 50 50)"/>
+  </g>
+  <circle cx="50" cy="50" r="8" fill="#D4A574"/>
+</svg>

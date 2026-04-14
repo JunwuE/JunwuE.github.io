@@ -625,8 +625,7 @@ h6 {
 .skill-icon {
     width: auto;
     max-width: 4rem;
-    height: auto;
-    max-height: 3rem;
+    height: 3rem;
     margin-bottom: 0.5rem;
     object-fit: contain;
     /* 移除强制变黑的滤镜 */

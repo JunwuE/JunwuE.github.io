@@ -624,8 +624,9 @@ h6 {
 /* 技能 Logo 图片样式：显示原色 */
 .skill-icon {
     width: auto;
-    max-width: 6.5rem;
-    height: 3.5rem;
+    max-width: 4rem;
+    height: auto;
+    max-height: 3rem;
     margin-bottom: 0.5rem;
     object-fit: contain;
     /* 移除强制变黑的滤镜 */

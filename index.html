@@ -1,90 +1,376 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-
+<!DOCTYPE HTML>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Junwu E - 个人主页</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Junwu E | Personal Homepage</title>
+  <meta name="author" content="Junwu E">
+  <meta name="description" content="Junwu E - Undergraduate student at Tongji University. Computer Vision, Robot Perception, 3D Mesh Reconstruction and Generation.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="icon" type="image/png" href="img/hkustgz.png">
+  <style>
+    body, * {
+      cursor: url('img/icon/cursor.png'), auto;
+    }
+    a, a * {
+      cursor: url('img/icon/cursor-pointer.png'), pointer !important;
+    }
+  </style>
 </head>
-
 <body>
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="index.html">Junwu E</a>
-            </div>
-            <div class="nav-menu" id="nav-menu">
-                <a href="index.html" class="nav-link active">Home</a>
-                <a href="profile.html" class="nav-link">Profile</a>
-                <a href="publications.html" class="nav-link">Publications</a>
-                <a href="projects.html" class="nav-link">Projects</a>
-                <a href="contact.html" class="nav-link">Contact</a>
-            </div>
-            <div class="nav-toggle" id="nav-toggle">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </div>
-    </nav>
+  <table id="about" class="page-section" style="width:100%;max-width:1060px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+    <tr style="padding:0px">
+      <td style="padding:0px">
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+          <tr style="padding:0px">
+            <td style="padding:2.5%;width:68%;vertical-align:middle">
+              <p style="text-align:center">
+                <name>Junwu E<span id="astronaut-btn" style="cursor: pointer; margin-left: 5px;" title="Copy bio">🧑‍🚀</span></name>
+              </p>
+              <p>
+                I am an undergraduate student at
+                <a href="https://www.tongji.edu.cn/" target="_blank" rel="noopener">Tongji University</a>,
+                majoring in Automation (B.E.) at the College of Electronic and Information Engineering.
+                I am a member of the <a href="https://mias.group/" target="_blank" rel="noopener">MIAS Group</a>,
+                supervised by <a href="https://mias.group/group/" target="_blank" rel="noopener">Prof. Rui Fan</a>.
+              </p>
+              <p>
+                My research interests lie in computer vision and robot perception, with a current focus on
+                3D mesh reconstruction and generation, panoptic occupancy prediction, and world models.
+                I enjoy building large-scale benchmarks and open-source tools, and sharing what I learn along the way.
+              </p>
+              <div style="width: 100%; height: 1px; background: linear-gradient(to right, transparent, #ccc 20%, #ccc 80%, transparent); margin: 10px 0;"></div>
 
-    <!-- 主页部分：终端 + 方形机器人 -->
-    <section id="home" class="hero">
-        <div class="hero-panels">
-            <!-- 左侧：终端 -->
-            <div class="terminal-pane" id="terminal-pane">
-                <div class="terminal-header">
-                    <span class="terminal-title">JUNWU_OS v1.0</span>
-                    <span class="terminal-status">Status: ONLINE</span>
-                </div>
-                <div class="terminal-body" id="terminal-body">
-                    <!-- 终端输出行由 JS 动态注入 -->
-                </div>
-                <form class="terminal-input-line" id="terminal-form" autocomplete="off">
-                    <span class="terminal-prompt">guest@junwu-e:~$</span>
-                    <input type="text" id="terminal-input" spellcheck="false" autocomplete="off" />
-                    <span class="terminal-caret"></span>
-                </form>
-            </div>
+              <p class="contact-links">
+                <span class="contact-line">
+                  <a href="mailto:junwue@ieee.org" id="email-copy" class="email-link" title="Click to copy email">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                      <path d="m3 7 9 6 9-6"></path>
+                    </svg>
+                    Email: <span class="contact-sub">junwue[at]ieee.org</span>
+                  </a> &nbsp/&nbsp
+                  <a href="https://github.com/JunwuE" target="_blank" rel="noopener" title="GitHub profile">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 .5C5.7.5.6 5.6.6 11.9c0 5 3.3 9.3 7.9 10.8.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 .1.5 2.7 3.2 1.9.1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.6.1-3.1 0 0 1-.3 3.2 1.2.9-.3 1.9-.4 2.9-.4s2 .1 2.9.4c2.2-1.5 3.2-1.2 3.2-1.2.6 1.5.2 2.8.1 3.1.8.9 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.8C23.4 5.6 18.3.5 12 .5Z"></path>
+                    </svg>
+                    GitHub
+                  </a> &nbsp/&nbsp
+                  <a href="tel:+8618801615808" title="Phone">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    Phone
+                  </a>
+                </span>
+              </p>
+            </td>
+            <td style="padding:2.5%;width:40%;max-width:40%">
+              <img style="width:70%;max-width:180px;border-radius:8px;" alt="Junwu E" src="img/face.png">
+            </td>
+          </tr>
+        </tbody></table>
 
-            <!-- 右侧：机器人 + 信息卡 -->
-            <div class="right-col">
-                <div class="robot-pane" id="robot-pane">
-                    <canvas id="robot-canvas" width="720" height="720"></canvas>
-                    <div class="robot-status" id="robot-status">[ UNIT_STATUS: IDLE ]</div>
-                    <div class="robot-speech" id="robot-speech"></div>
-                </div>
-                <div class="info-row">
-                    <div class="info-card">
-                        <h4>Current Status</h4>
-                        <p class="info-label">School</p>
-                        <p class="info-value">Tongji University</p>
-                        <p class="info-detail">College of Electronic &amp; Information Engineering</p>
-                        <p class="info-label" style="margin-top:0.6rem;">Lab</p>
-                        <p class="info-value">MIAS Group</p>
-                        <p class="info-detail">Supervisor: Prof. Rui Fan</p>
+        <table id="experience" class="page-section" width="100%" align="center" border="0" cellpadding="10"><tbody>
+          <br>
+          <heading>Experience</heading>
+          <br>
+          <tr>
+            <td style="padding-left:15px;padding-right:20px;width:130px;vertical-align:middle"><img src="img/gt.svg" width="130" alt="Georgia Institute of Technology logo"></td>
+            <td valign="center">
+              <strong>Georgia Institute of Technology</strong>
+              <br> 2026 Fall (Admitted) &rarr; Deferred to 2027 Fall
+              <br> <strong>M.S. in Robotics</strong>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-left:20px;padding-right:10px;width:130px;vertical-align:middle"><img src="img/hkustgz.png" width="130" alt="HKUST (Guangzhou) logo"></td>
+            <td valign="center">
+              <strong>The Hong Kong University of Science and Technology (Guangzhou)</strong>
+              <br> 2026.07 - Present
+              <br> <strong>Research Assistant (RA) Intern</strong>
+              <br> Research Advisor: <a href="https://sites.google.com/view/haoangli/homepage" target="_blank" rel="noopener">Prof. Haoang Li</a> (IRPN Lab)
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-left:49px;padding-right:20px;width:90px;vertical-align:middle"><img src="img/tongji.svg" width="70" alt="Tongji University logo"></td>
+            <td valign="center">
+              <strong>Tongji University, College of Electronic and Information Engineering</strong>
+              <br> 2021.09 - 2026.06
+              <br> <strong>B.E. in Automation</strong>
+              <br> Research Advisor: <a href="https://mias.group/group/" target="_blank" rel="noopener">Prof. Rui Fan</a> (MIAS Group)
+            </td>
+          </tr>
+        </tbody></table>
+
+        <table id="news" class="page-section" style="width:96%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+          <tr>
+            <heading>News</heading>
+            <br>
+            <td style="padding:0px;width:100%;vertical-align:middle">
+              <P class="news-first-entry">
+                <li class="news-entry"><span class="news-date-badge">2026</span> Our paper <span class="news-highlight">CarlaOcc</span> was accepted by <span class="news-highlight">IEEE/CVF CVPR 2026</span>.
+                </li>
+              </P>
+              <P>
+                <li class="news-entry"><span class="news-date-badge">Mar. 2026</span> The CarlaOcc preprint is available on <a href="https://arxiv.org/abs/2603.27238" target="_blank" rel="noopener">arXiv</a>.
+                </li>
+              </P>
+              <P>
+                <li class="news-entry"><span class="news-date-badge">2025</span> Two papers (<span class="news-highlight">TBSMNet</span> and road crack detection) were published at <span class="news-highlight">IEEE RCAR 2025</span>.
+                </li>
+              </P>
+              <P>
+                <li class="news-entry"><span class="news-date-badge">2025</span> Second Prize, East China Division Embedded Systems Competition.
+                </li>
+              </P>
+              <P>
+                <li class="news-entry"><span class="news-date-badge">2023</span> First-Class Scholarship (Top 10%), Tongji University.
+                </li>
+              </P>
+            </td>
+          </tr>
+        </tbody></table>
+
+        <table id="publications" class="page-section" style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+          <tbody>
+            <tr>
+              <td style="padding:0px;width:100%;vertical-align:top">
+                <heading>Publications</heading>
+                <br><br>
+                <div class="pub-list">
+
+                  <!-- [1] CarlaOcc — CVPR 2026 -->
+                  <div class="pub-item">
+                    <div class="pub-thumb">
+                      <img src="research_img/4.png" alt="CarlaOcc">
                     </div>
-                    <div class="info-card">
-                        <h4>Current Research Interests</h4>
-                        <p class="info-label">3D Mesh Reconstruction</p>
-                        <p class="info-detail">Recovering high-quality 3D mesh from images &amp; point clouds</p>
-                        <p class="info-label" style="margin-top:0.6rem;">3D Mesh Generation</p>
-                        <p class="info-detail">Generative models for 3D mesh synthesis &amp; editing</p>
-                        <p class="info-label" style="margin-top:0.6rem;">World Models</p>
-                        <p class="info-detail">LeCun-style joint embedding predictive architectures (JEPA)</p>
+                    <div class="pub-info">
+                      <p class="pub-title">
+                        An Instance-Centric Panoptic Occupancy Prediction Benchmark for Autonomous Driving (CarlaOcc)
+                      </p>
+                      <p class="pub-authors">
+                        Yi Feng*, <span class="me">Junwu E</span>*, Zizhan Guo, Yu Ma, Hanli Wang, Rui Fan
+                      </p>
+                      <p class="pub-venue">
+                        IEEE/CVF Conference on Computer Vision and Pattern Recognition <strong>(CVPR)</strong>, 2026
+                        <span class="badge accepted">Accepted (PC Decision · Final Score 455)</span>
+                      </p>
+                      <p class="pub-desc">
+                        A large-scale instance-level panoptic occupancy benchmark built on the CARLA simulator,
+                        featuring multi-modal data collection, pedestrian mesh extraction and reconstruction.
+                      </p>
+                      <p class="pub-links">
+                        <a href="https://arxiv.org/abs/2603.27238" target="_blank" rel="noopener">paper</a>
+                        <a href="https://mias.group/CarlaOcc/" target="_blank" rel="noopener">page</a>
+                        <a href="https://www.youtube.com/watch?v=b8nFA7ydC_A" target="_blank" rel="noopener">demo</a>
+                        <a href="https://huggingface.co/datasets/fengyi233/CarlaOcc" target="_blank" rel="noopener">dataset</a>
+                        <a href="https://carlaocc.readthedocs.io/en/latest/" target="_blank" rel="noopener">docs</a>
+                      </p>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                  </div>
 
-    <script src="script.js"></script>
+                  <!-- [2] KITTI-360-PO -->
+                  <div class="pub-item">
+                    <div class="pub-thumb">
+                      <img src="research_img/5.png" alt="KITTI-360-PO">
+                    </div>
+                    <div class="pub-info">
+                      <p class="pub-title">
+                        KITTI-360-PO: A Panoptic Occupancy Benchmark for Geometrically Complete Scene Understanding
+                      </p>
+                      <p class="pub-authors">
+                        <span class="me">Junwu E</span>, Yi Feng, Xijing Zhang, Wei Ye, Rui Fan
+                      </p>
+                      <p class="pub-venue">
+                        <em>Under Review</em>
+                        <span class="badge review">Under Review</span>
+                      </p>
+                      <p class="pub-desc">
+                        A large-scale instance-level dataset built on KITTI-360 with a data processing pipeline for
+                        automatic instance extraction, instance segmentation and mesh reconstruction of dynamic
+                        objects — targeting geometrically complete outdoor scene understanding.
+                      </p>
+                      <p class="pub-links">
+                        <a href="#">paper</a>
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- [3] TBSMNet — RCAR 2025 -->
+                  <div class="pub-item">
+                    <div class="pub-thumb">
+                      <img src="research_img/3.png" alt="TBSMNet">
+                    </div>
+                    <div class="pub-info">
+                      <p class="pub-title">
+                        <a href="https://ieeexplore.ieee.org/abstract/document/11139708" target="_blank" rel="noopener">
+                          Transformer and Trainable Bilateral Filter for Unsupervised Stereo Matching
+                        </a>
+                      </p>
+                      <p class="pub-authors">
+                        <span class="me">Junwu E</span>, Ming-Ju Lee, Qinluo Deng, Guanfeng Tang, Zhengfei Song,
+                        Yang Xu, Ye Zhang, Ilin Alexander, Rui Fan
+                      </p>
+                      <p class="pub-venue">
+                        IEEE International Conference on Real-time Computing and Robotics <strong>(RCAR)</strong>, 2025
+                      </p>
+                      <p class="pub-desc">
+                        TBSMNet, an unsupervised stereo matching network integrating a hybrid Transformer–CNN
+                        encoder with a trainable bilateral filter for adaptive noise suppression. Achieves
+                        significant accuracy improvements on SceneFlow and KITTI.
+                      </p>
+                      <p class="pub-links">
+                        <a href="https://ieeexplore.ieee.org/abstract/document/11139708" target="_blank" rel="noopener">paper</a>
+                        <a href="https://github.com/JunwuE/TBSMnet" target="_blank" rel="noopener">code</a>
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- [4] Road Crack Detection — RCAR 2025 -->
+                  <div class="pub-item">
+                    <div class="pub-thumb">
+                      <img src="research_img/dualtrack.png" alt="Road Crack Detection">
+                    </div>
+                    <div class="pub-info">
+                      <p class="pub-title">
+                        <a href="https://ieeexplore.ieee.org/abstract/document/11139795" target="_blank" rel="noopener">
+                          Robust and Real-time Road Crack Detection through Collaborative Dual-Branch Learning
+                          on Robotic Sensing Platform
+                        </a>
+                      </p>
+                      <p class="pub-authors">
+                        Zhengfei Song, Nachuan Ma, Zhuoyan Zhang, <span class="me">Junwu E</span>,
+                        MingJu Lee, Sergey Vityazev, Alexander Dvorkovich, Rui Fan
+                      </p>
+                      <p class="pub-venue">
+                        IEEE International Conference on Real-time Computing and Robotics <strong>(RCAR)</strong>, 2025
+                      </p>
+                      <p class="pub-desc">
+                        A collaborative dual-branch learning framework for robust and real-time road crack
+                        detection, validated on a robotic sensing platform.
+                      </p>
+                      <p class="pub-links">
+                        <a href="https://ieeexplore.ieee.org/abstract/document/11139795" target="_blank" rel="noopener">paper</a>
+                      </p>
+                    </div>
+                  </div>
+
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table id="projects" class="page-section" style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+          <tr>
+            <td style="padding:0px;width:100%;vertical-align:top">
+              <heading>Projects</heading>
+              <br><br>
+              <ul>
+                <li><a href="https://github.com/JunwuE/Stereo-Vision-based-Tactile-Sensing" target="_blank" rel="noopener">Stereo Vision-based Tactile Sensing</a> <a href="https://github.com/JunwuE/Stereo-Vision-based-Tactile-Sensing" target="_blank" rel="noopener" title="GitHub repo"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px;vertical-align:-2px;"><path d="M12 .5C5.7.5.6 5.6.6 11.9c0 5 3.3 9.3 7.9 10.8.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 .1.5 2.7 3.2 1.9.1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.6.1-3.1 0 0 1-.3 3.2 1.2.9-.3 1.9-.4 2.9-.4s2 .1 2.9.4c2.2-1.5 3.2-1.2 3.2-1.2.6 1.5.2 2.8.1 3.1.8.9 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.8C23.4 5.6 18.3.5 12 .5Z"></path></svg></a>: A vision-based tactile sensing system using binocular cameras, with a deep learning-based stereo processing framework for marker detection and disparity estimation.</li>
+                <li><a href="https://github.com/JunwuE/Joint-Learning-of-Monocular-Depth-Estimation-and-Semantic-Segmentation" target="_blank" rel="noopener">Joint Learning of Monocular Depth Estimation and Semantic Segmentation</a> <a href="https://github.com/JunwuE/Joint-Learning-of-Monocular-Depth-Estimation-and-Semantic-Segmentation" target="_blank" rel="noopener" title="GitHub repo"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px;vertical-align:-2px;"><path d="M12 .5C5.7.5.6 5.6.6 11.9c0 5 3.3 9.3 7.9 10.8.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 .1.5 2.7 3.2 1.9.1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.6.1-3.1 0 0 1-.3 3.2 1.2.9-.3 1.9-.4 2.9-.4s2 .1 2.9.4c2.2-1.5 3.2-1.2 3.2-1.2.6 1.5.2 2.8.1 3.1.8.9 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.8C23.4 5.6 18.3.5 12 .5Z"></path></svg></a>: Multi-task joint learning framework with a shared encoder and task-specific decoders, adaptive loss balancing, and 3D semantic point cloud reconstruction.</li>
+                <li><a href="https://github.com/JunwuE/gesture_pcb" target="_blank" rel="noopener">Embedded System Development of Gesture Recognition</a> <a href="https://github.com/JunwuE/gesture_pcb" target="_blank" rel="noopener" title="GitHub repo"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px;vertical-align:-2px;"><path d="M12 .5C5.7.5.6 5.6.6 11.9c0 5 3.3 9.3 7.9 10.8.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 .1.5 2.7 3.2 1.9.1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.6.1-3.1 0 0 1-.3 3.2 1.2.9-.3 1.9-.4 2.9-.4s2 .1 2.9.4c2.2-1.5 3.2-1.2 3.2-1.2.6 1.5.2 2.8.1 3.1.8.9 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.8C23.4 5.6 18.3.5 12 .5Z"></path></svg></a>: Real-time gesture recognition on resource-constrained embedded devices with machine learning algorithms.</li>
+                <li><a href="https://github.com/JunwuE/IPMV" target="_blank" rel="noopener">Camera Calibration and Stereo Matching</a> <a href="https://github.com/JunwuE/IPMV" target="_blank" rel="noopener" title="GitHub repo"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px;vertical-align:-2px;"><path d="M12 .5C5.7.5.6 5.6.6 11.9c0 5 3.3 9.3 7.9 10.8.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 .1.5 2.7 3.2 1.9.1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.6.1-3.1 0 0 1-.3 3.2 1.2.9-.3 1.9-.4 2.9-.4s2 .1 2.9.4c2.2-1.5 3.2-1.2 3.2-1.2.6 1.5.2 2.8.1 3.1.8.9 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.8C23.4 5.6 18.3.5 12 .5Z"></path></svg></a>: Image processing project implementing camera calibration algorithms and stereo matching techniques for depth estimation.</li>
+                <li><a href="https://github.com/JunwuE/water_robot" target="_blank" rel="noopener">Autonomous Water-Surface Robot</a> <a href="https://github.com/JunwuE/water_robot" target="_blank" rel="noopener" title="GitHub repo"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px;vertical-align:-2px;"><path d="M12 .5C5.7.5.6 5.6.6 11.9c0 5 3.3 9.3 7.9 10.8.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 .1.5 2.7 3.2 1.9.1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.6.1-3.1 0 0 1-.3 3.2 1.2.9-.3 1.9-.4 2.9-.4s2 .1 2.9.4c2.2-1.5 3.2-1.2 3.2-1.2.6 1.5.2 2.8.1 3.1.8.9 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.8C23.4 5.6 18.3.5 12 .5Z"></path></svg></a>: Multi-directional garbage detection and collection robot for water surface cleaning, integrating computer vision and autonomous navigation.</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody></table>
+
+        <table id="awards" class="page-section" style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+          <tr>
+            <br>
+            <heading>Awards and Honors</heading>
+            <br>
+            <br>
+            <td style="padding:0px;width:100%;vertical-align:middle">
+              <ul>
+                <li>2025: Second Prize, East China Division Embedded Systems Competition</li>
+                <li>2023: First-Class Scholarship (Top 10%), Tongji University</li>
+                <li>2022: Second-Class Scholarship (Top 30%), Tongji University</li>
+                <li>2022: Outstanding Student Cadre, Tongji University</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody></table>
+
+      </td>
+    </tr>
+  </table>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" onclick="scrollToTop()" title="Back to top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
+
+  <div id="toast" class="toast-message">✅ Copied</div>
+
+  <script>
+    // Back to Top
+    (function() {
+      var btn = document.getElementById('backToTop');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 300) {
+          btn.classList.add('visible');
+        } else {
+          btn.classList.remove('visible');
+        }
+      });
+    })();
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function copyText(text, event) {
+      const showToast = () => {
+        const toast = document.getElementById('toast');
+        if (event) {
+          const margin = 12;
+          const x = Math.min(Math.max(event.clientX, margin), window.innerWidth - margin);
+          const y = Math.min(Math.max(event.clientY, 48), window.innerHeight - margin);
+          toast.style.setProperty('--toast-x', x + 'px');
+          toast.style.setProperty('--toast-y', y + 'px');
+        }
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 2000);
+      };
+
+      navigator.clipboard.writeText(text).then(function() {
+        showToast();
+      }).catch(function(err) {
+        console.error('Copy failed: ', err);
+        // Fallback
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+          document.execCommand('copy');
+          showToast();
+        } catch (err) {
+          console.error('Fallback copy failed: ', err);
+        }
+        document.body.removeChild(textArea);
+      });
+    }
+
+    // Copy bio
+    document.getElementById('astronaut-btn').addEventListener('click', function(e) {
+      const text = "Junwu E is an undergraduate student at Tongji University, majoring in Automation at the College of Electronic and Information Engineering. Member of the MIAS Group, supervised by Prof. Rui Fan. Research interests: computer vision, robot perception, 3D mesh reconstruction and generation, panoptic occupancy prediction, and world models.";
+      copyText(text, e);
+    });
+
+    // Copy email
+    document.getElementById('email-copy').addEventListener('click', function(e) {
+      e.preventDefault();
+      copyText('2152482@tongji.edu.cn', e);
+    });
+  </script>
 </body>
-
 </html>
